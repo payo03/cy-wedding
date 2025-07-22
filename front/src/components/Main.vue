@@ -21,7 +21,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import '../styles/MainActions.css'
+import '../styles/Main.css'
 import axios from 'axios'
 import { useRouter } from 'vue-router'  // 상단에 추가
 
@@ -41,7 +41,7 @@ const handleFileSelect = async (event) => {
 
   try {
     const response = await axios.post(
-      '/image/upload', 
+      '/api/image/upload', 
       formData,
       {
         headers: {

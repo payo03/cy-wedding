@@ -8,10 +8,10 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-import '../styles/NoticeSection.css'
+import '../styles/Notice.css'
 
 const router = useRouter()
 const goHome = () => {
-  router.push({ name: 'HomeView' })
+  router.push({ name: 'MainView' })
 }
 </script>

@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 
 const images = ref([])
@@ -42,7 +42,7 @@ onMounted(async () => {
   updateColumnCount()
 
   try {
-    const response = await axios.get('/image/list')
+    const response = await axios.get('/api/image/list')
     images.value = response.data
   } catch (e) {
     console.error('이미지 목록 불러오기 실패:', e)
