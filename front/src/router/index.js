@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ImageListView from '../components/ImageList.vue'
-import MainActions from '../components/MainActions.vue'
+import MainView from '../components/Main.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'HomeView',
-    component: MainActions
+    name: 'MainView',
+    component: MainView
   },
   {
     path: '/image/list',

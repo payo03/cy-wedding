@@ -1,8 +1,8 @@
 .insta-layout {
-    min-height: 70vh;
-    max-height: 75vh;
+    min-height: 90vh;
+    max-height: 95vh;
     height: auto;
-    width: 85%;
+    width: 95%;
     padding: 0 1rem;
     background: linear-gradient(135deg, #fff 0%, #f8e1ea 60%, #e6e6fa 100%);
     font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
@@ -23,6 +23,9 @@
     flex-direction: column;
     justify-content: center;
     padding-bottom: 2rem; /* 여백 추가 */
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 /* 헤더 구조 */

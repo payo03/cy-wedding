@@ -1,5 +1,5 @@
 <script setup>
-import NoticeSection from './components/NoticeSection.vue'
+import NoticeSection from './components/Notice.vue'
 import './styles/App.css'
 </script>
 
