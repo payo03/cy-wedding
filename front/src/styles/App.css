@@ -1,0 +1,106 @@
+.insta-layout {
+    min-height: 70vh;
+    max-height: 75vh;
+    height: auto;
+    width: 85%;
+    padding: 0 1rem;
+    background: linear-gradient(135deg, #fff 0%, #f8e1ea 60%, #e6e6fa 100%);
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    border: 1px solid #e5e5e5;
+    border-radius: 0.8rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* 유동적 컨텐츠 영역 */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 2rem; /* 여백 추가 */
+}
+
+/* 헤더 구조 */
+.insta-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1rem 0 0.7rem 0;
+    background: transparent;
+}
+
+/* 로고 아이콘 */
+.insta-logo {
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+/* 제목 */
+.insta-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: #d4af37;
+    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.wedding-emoji {
+    font-size: 1.3em;
+    margin: 0 0.2em;
+    vertical-align: middle;
+}
+
+/* 중형 기기 (태블릿) */
+@media (min-width: 600px) {
+    .insta-layout {
+        max-width: 540px;
+        margin: 0 auto;
+        border-radius: 1rem;
+        box-shadow: 0 2px 24px rgba(0,0,0,0.07);
+    }
+
+    .insta-header {
+        padding-top: 2rem;
+    }
+
+    .insta-title {
+        font-size: 1.4rem;
+    }
+}
+
+/* 대형 기기 (태블릿 가로 / 작은 노트북) */
+@media (min-width: 768px) {
+    .insta-layout {
+        max-width: 640px;
+    }
+
+    .insta-title {
+        font-size: 1.6rem;
+    }
+}
+
+/* 데스크탑 환경 (PC 뷰) */
+@media (min-width: 1024px) {
+    .insta-layout {
+        max-width: 720px;
+    }
+
+    .main-content {
+        min-height: 60vh;
+    }
+
+    .insta-title {
+        font-size: 1.8rem;
+    }
+}
