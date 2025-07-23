@@ -17,7 +17,7 @@
 
         <div class="modal-content" :class="{ closing: isClosing }">
           <img :src="selectedImage.url" class="modal-image" alt="확대 이미지" />
-          <button class="vote-button" @click="vote">🥇</button>
+          <button class="vote-button" @click="vote">🌸 가장 예쁜 순간에 투표해주세요 🌸</button>
         </div>
       </div>
     </div>

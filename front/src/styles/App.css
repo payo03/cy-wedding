@@ -46,22 +46,19 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
-/* 제목 */
 .insta-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    color: #d4af37;
-    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-}
-
-.wedding-emoji {
-    font-size: 1.3em;
-    margin: 0 0.2em;
-    vertical-align: middle;
+  margin-top: 1.2rem;
+  background-color: #ffffff; /* 흰색 배경 */
+  border: 1px solid #ddd; /* 연한 회색 테두리 */
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #8b5e3c; /* 고급스러운 브라운 */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  font-family: 'Gowun Dodum', sans-serif; /* 동글동글한 느낌 */
 }
 
 /* 중형 기기 (태블릿) */

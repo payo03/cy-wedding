@@ -99,16 +99,21 @@
 
 .vote-button {
   margin-top: 1.2rem;
-  background: none;
-  border: none;
-  font-size: 2rem;
+  background-color: #fff0f5;
+  border: 1px solid #f9ccec;
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #d63384;
   cursor: pointer;
-  color: #22c55e;
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .vote-button:hover {
-  transform: scale(1.15);
+  background-color: #ffe6f1;
+  transform: scale(1.05);
 }
 
 @keyframes fadeInScale {
