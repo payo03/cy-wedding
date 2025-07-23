@@ -22,8 +22,8 @@
 <script setup>
 import { ref } from 'vue'
 import '../styles/Main.css'
-import axios from 'axios'
-import { useRouter } from 'vue-router'  // 상단에 추가
+import axios from '@/utils/axios'
+import { useRouter } from 'vue-router'
 
 const fileInput = ref(null)
 const router = useRouter()
@@ -41,7 +41,7 @@ const handleFileSelect = async (event) => {
 
   try {
     const response = await axios.post(
-      '/api/image/upload', 
+      '/image/upload', 
       formData,
       {
         headers: {
@@ -50,12 +50,17 @@ const handleFileSelect = async (event) => {
       }
     )
 
-    alert('이미지 업로드가 성공하였습니다!');
-    router.push({ name: 'ImageList' })
-  } catch (error) {
+    const { success, message, fileName } = response.data
 
-    alert('에러가 발생하였습니다...');
-    alert(error);
+    alert(`${message}`)
+    if (success) {
+      router.push({ name: 'ImageList' })
+    }
+  } catch (error) {
+    console.error(error)
+    const errorMessage = error.response?.data?.message || '❌ 서버 오류 발생 ❌'
+
+    alert(errorMessage)
   }
 }
 
