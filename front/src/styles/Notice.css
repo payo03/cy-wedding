@@ -21,32 +21,38 @@
 }
 
 .home-button {
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    transform: translateY(-50%);
-    background-color: #6366f1;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    font-size: 0.85rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  padding: 4px 6px;
+  font-size: 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
 }
 
 .home-button:hover {
-    background-color: #4f46e5;
+  background-color: #4f46e5;
 }
 
 @media (min-width: 600px) {
     .notice-section {
-        padding: 0.7rem 1.2rem 0.6rem 1.2rem;
-        font-size: 1.08rem;
+      padding: 0.7rem 1.2rem 0.6rem 1.2rem;
+      font-size: 1.08rem;
     }
-
+  
     .home-button {
-        font-size: 0.95rem;
-        padding: 8px 14px;
+      /* 그대로 유지하거나 폰트 살짝 키워도 됨 */
+      font-size: 1.25rem;
     }
-}
+}  

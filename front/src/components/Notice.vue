@@ -2,7 +2,7 @@
   <section class="notice-section">
     <p>사진 업로드 및 투표는</p>
     <p>🙏1번만 가능합니다🙏</p>
-    <button class="home-button" @click="goHome">HOME</button>
+    <button class="home-button" @click="goHome">🏠</button>
   </section>
 </template>
 
