@@ -6,11 +6,11 @@
     text-align: center;
     border-bottom: 1px solid #e5e7eb;
     box-shadow: 0 1px 4px rgba(0,0,0,0.02);
-    font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
     position: relative; /* 버튼 위치 기준 */
     min-height: unset;
     z-index: 1;
     font-weight: 700;
+    font-family: 'Gowun Dodum', sans-serif; /* 동글동글한 느낌 */
 }
 
 .notice-section p {
