@@ -1,46 +1,39 @@
 <template>
-  <div class="image-list-container">
+  <div class="image-list-scroll-wrapper">
     <div class="image-columns">
       <div
-        v-for="(column, colIndex) in imageColumns"
-        :key="colIndex"
-        class="image-column"
+        v-for="(image, index) in images"
+        :key="index"
+        class="image-item"
+        @click="openModal(image)"
       >
-        <div
-          v-for="(image, index) in column"
-          :key="index"
-          class="image-item"
-          @click="openModal(image)"
-        >
-          <img :src="image" alt="업로드 이미지" />
+        <img :src="image" alt="업로드 이미지" />
+      </div>
+
+      <!-- 모달 -->
+      <div v-if="selectedImage" class="modal" @click.self="closeModal">
+        <!-- 닫기 버튼은 모달 바깥쪽에 위치 -->
+        <button class="close-button" @click="closeModal">×</button>
+
+        <div class="modal-content" :class="{ closing: isClosing }">
+          <img :src="selectedImage" class="modal-image" alt="확대 이미지" />
+          <button class="vote-button">🥇</button>
         </div>
       </div>
-    </div>
-
-    <!-- 모달 -->
-    <div v-if="selectedImage" class="modal" @click.self="closeModal">
-      <img :src="selectedImage" class="modal-image" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import axios from 'axios'
+import '../styles/ImageList.css'
 
 const images = ref([])
 const selectedImage = ref(null)
-
-// 화면 크기에 따라 분할 수 결정
-const columnCount = ref(3)
-const updateColumnCount = () => {
-  columnCount.value = window.innerWidth < 768 ? 2 : 3
-}
+const isClosing = ref(false)
 
 onMounted(async () => {
-  window.addEventListener('resize', updateColumnCount)
-  updateColumnCount()
-
   try {
     const response = await axios.get('/api/image/list')
     images.value = response.data
@@ -52,15 +45,13 @@ onMounted(async () => {
 const openModal = (image) => {
   selectedImage.value = image
 }
+
 const closeModal = () => {
-  selectedImage.value = null
+  isClosing.value = true
+  setTimeout(() => {
+    selectedImage.value = null
+    isClosing.value = false
+  }, 250) // 애니메이션 시간과 일치
 }
 
-const imageColumns = computed(() => {
-  const cols = Array.from({ length: columnCount.value }, () => [])
-  images.value.forEach((img, index) => {
-    cols[index % columnCount.value].push(img)
-  })
-  return cols
-})
-</script>  
+</script>
