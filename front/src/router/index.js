@@ -23,7 +23,7 @@ const routes = [
       const qrcode = to.params.qrcode;
 
       // 2. localStorage에 저장
-      setQrcodeToken(qrcode)
+      setQrcodeToken(qrcode);
 
       // 3. 메인 페이지로 리다이렉트
       next('/');
