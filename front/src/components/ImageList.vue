@@ -7,7 +7,7 @@
         class="image-item"
         @click="openModal(image)"
       >
-        <img :src="image" alt="업로드 이미지" />
+        <img :src="image.url" alt="이미지" />
       </div>
 
       <!-- 모달 -->
@@ -16,8 +16,8 @@
         <button class="close-button" @click="closeModal">×</button>
 
         <div class="modal-content" :class="{ closing: isClosing }">
-          <img :src="selectedImage" class="modal-image" alt="확대 이미지" />
-          <button class="vote-button">🥇</button>
+          <img :src="selectedImage.url" class="modal-image" alt="확대 이미지" />
+          <button class="vote-button" @click="vote">🥇</button>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
+import axios from '@/utils/axios'
 import '../styles/ImageList.css'
 
 const images = ref([])
@@ -35,10 +35,16 @@ const isClosing = ref(false)
 
 onMounted(async () => {
   try {
-    const response = await axios.get('/api/image/list')
-    images.value = response.data
+    const response = await axios.get('/image/list')
+    const { success, images: imageList, message } = response.data
+
+    if (success) {
+      images.value = imageList
+    }
   } catch (e) {
-    console.error('이미지 목록 불러오기 실패:', e)
+    console.error('이미지 목록 에러:', e)
+    const errorMessage = e.response?.data?.message || '❌ 서버 오류 발생 ❌'
+    alert(errorMessage)
   }
 })
 
@@ -51,7 +57,29 @@ const closeModal = () => {
   setTimeout(() => {
     selectedImage.value = null
     isClosing.value = false
-  }, 250) // 애니메이션 시간과 일치
+  }, 250)
 }
 
+const vote = async () => {
+  if (!selectedImage.value) return
+
+  try {
+    const response = await axios.post('/image/vote', {
+      imageName: selectedImage.value.name,
+    })
+
+    const { success, message } = response.data
+
+    if (success) {
+      alert(message)
+      closeModal()
+    } else {
+      alert(`${message}`)
+    }
+  } catch (e) {
+    console.error('투표 실패:', e)
+    const errorMessage = e.response?.data?.message || '❌ 서버 오류 발생 ❌'
+    alert(errorMessage)
+  }
+}
 </script>
