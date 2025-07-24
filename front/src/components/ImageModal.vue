@@ -17,6 +17,7 @@
 <script setup>
 import axios from '@/utils/axios'
 import '../styles/ImageModal.css'
+import '../styles/Common.css'
 
 const props = defineProps({ 
     image: Object,

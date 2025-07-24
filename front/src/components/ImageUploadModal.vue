@@ -12,6 +12,7 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue'
 import '../styles/ImageUploadModal.css'
+import '../styles/Common.css'
 
 defineProps({ previewUrl: String })
 const emit = defineEmits(['close', 'confirm'])

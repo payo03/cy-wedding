@@ -34,6 +34,7 @@ import { useRouter } from 'vue-router'
 import axios from '@/utils/axios'
 import ImageUploadModal from '@/components/ImageUploadModal.vue'
 import '../styles/Main.css'
+import '../styles/Common.css'
 
 const fileInput = ref(null)
 const selectedFile = ref(null)
@@ -72,7 +73,7 @@ const confirmUpload = async () => {
       selectedFile.value = null
       previewUrl.value = null
       showModal.value = false
-      
+
       router.push({ name: 'ImageList' })
     }
   } catch (error) {
