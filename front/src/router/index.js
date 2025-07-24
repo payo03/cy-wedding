@@ -26,7 +26,7 @@ const routes = [
       setQrcodeToken(qrcode);
 
       // 3. 메인 페이지로 리다이렉트
-      next('/');
+      next({ name: 'MainView' });
     },
   },
 ]
