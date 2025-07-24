@@ -44,96 +44,13 @@
   transform: scale(1.03);
 }
 
-/* 모달 */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px); /* 이전 화면 흐리게 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+/* 모달 트랜지션 효과 */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.25s ease;
 }
 
-.modal-content {
-  position: relative;
-  max-width: 100vw;
-  max-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  animation: fadeInScale 0.25s ease-out forwards;
-}
-
-/* 닫을 때 애니메이션 */
-.modal-content.closing {
-  animation: fadeOutScale 0.25s ease-in forwards;
-}
-
-.modal-image {
-  max-width: 100vw;
-  max-height: 100vh;
-  object-fit: contain;
-}
-
-.close-button {
-  position: fixed; /* 📌 화면 기준 */
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  font-size: 2rem;
-  color: white;
-  cursor: pointer;
-  z-index: 1002;
-}
-
-.close-button:hover {
-  opacity: 0.8;
-}
-
-.vote-button {
-  margin-top: 1.2rem;
-  background-color: #fff0f5;
-  border: 1px solid #f9ccec;
-  padding: 0.6rem 1.2rem;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #d63384;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-
-.vote-button:hover {
-  background-color: #ffe6f1;
-  transform: scale(1.05);
-}
-
-@keyframes fadeInScale {
-  0% {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes fadeOutScale {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.9);
-  }
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
 }

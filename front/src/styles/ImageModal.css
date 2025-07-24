@@ -1,0 +1,92 @@
+/* 모달 전체 영역 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 모달 내부 컨텐츠 */
+.modal-content {
+  position: relative;
+  max-width: 100vw;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInScale 0.25s ease-out forwards;
+}
+
+/* 이미지 - 비율 유지하면서 화면 초과 방지 */
+.modal-image {
+  max-width: 90vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* 닫기 버튼 - 항상 잘 보이도록 배경 및 그림자 처리 */
+.close-button {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  font-size: 2rem;
+  color: white;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  z-index: 1002;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+}
+
+.close-button:hover {
+  opacity: 0.8;
+}
+
+/* 투표 버튼 */
+.vote-button {
+  margin-top: 1.5rem;
+  background-color: white;
+  color: #d63384;
+  border: 1px solid #f5b6d2;
+  padding: 0.8rem 1.6rem;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.vote-button:hover {
+  background-color: #ffe6f1;
+  transform: scale(1.05);
+}
+
+
+/* 열릴 때 애니메이션 */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
