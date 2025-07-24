@@ -77,16 +77,6 @@
   text-align: center;
 }
 
-/* 모달 트랜지션 효과 */
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-  transition: opacity 0.25s ease;
-}
-.modal-fade-enter-from,
-.modal-fade-leave-to {
-  opacity: 0;
-}
-
 @media (min-width: 600px) {
     .main-actions {
         gap: 2rem;
