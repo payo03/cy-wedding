@@ -15,8 +15,9 @@
         <ImageModal
           v-if="showModal"
           :image="selectedImage"
+          :user="user"
           @close="closeModal"
-          @voted="fetchImages"
+          @voted="fetchImageList"
         />
       </transition>
     </div>
@@ -30,15 +31,20 @@ import ImageModal from '@/components/ImageModal.vue'
 import '../styles/ImageList.css'
 
 const images = ref([])
+const user = ref(null)
 const selectedImage = ref(null)
 const showModal = ref(false)
 
-const fetchImages = async () => {
+const fetchImageList = async () => {
   try {
     const response = await axios.get('/image/list')
 
-    const { success, images: imageList } = response.data    
-    if (success) images.value = imageList
+    const { success, images: imageList, user: userInfo } = response.data
+
+    if (success) {
+      images.value = imageList
+      user.value = userInfo
+    }
   } catch (e) {
     console.error('이미지 목록 에러:', e)
     const errorMessage = e.response?.data?.message || '❌ 서버 오류 발생 ❌'
@@ -46,7 +52,7 @@ const fetchImages = async () => {
   }
 }
 
-onMounted(fetchImages)
+onMounted(fetchImageList)
 
 const openModal = (image) => {
   selectedImage.value = image
