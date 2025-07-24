@@ -58,26 +58,45 @@
   opacity: 0.8;
 }
 
-/* 투표 버튼 */
-.vote-button {
+.button-row {
   margin-top: 1.5rem;
-  background-color: white;
-  color: #d63384;
-  border: 1px solid #f5b6d2;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 공통 버튼 스타일 (투표, 삭제 모두에 적용) */
+.vote-button,
+.delete-button {
+  display: flex;                  /* 버튼 내부 정렬 */
+  align-items: center;
+  justify-content: center;
+
   padding: 0.8rem 1.6rem;
-  border-radius: 30px;
   font-size: 1.2rem;
   font-weight: bold;
+  border-radius: 30px;
+  border: 1px solid;
+  background-color: white;
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  line-height: 1;                /* 이모지 정렬 개선 */
 }
 
-.vote-button:hover {
+/* 👍 따봉 버튼 스타일 */
+.vote-button,
+.delete-button {
+  color: #d63384;
+  border-color: #f5b6d2;
+}
+
+.vote-button:hover,
+.delete-button:hover {
   background-color: #ffe6f1;
   transform: scale(1.05);
 }
-
 
 /* 열릴 때 애니메이션 */
 @keyframes fadeInScale {

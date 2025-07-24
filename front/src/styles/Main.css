@@ -48,19 +48,45 @@
     backdrop-filter: blur(3px);
     color: #3d3552;
 }
+
+.main-btn.cancel {
+  background-color: white;
+  border-color: #ffb3b3;
+  color: #ff4d4f;
+}
+
 .main-btn:active, .main-btn:focus {
     filter: brightness(0.97);
     transform: scale(0.98);
     box-shadow: 0 2px 12px rgba(212,175,55,0.08);
     border-color: #d4af37;
 }
+
 .main-btn:hover {
     border-color: #e3ded5;
 }
+
 .icon {
     font-size: 2rem;
     color: #c5a16e;
 }
+
+/* 이미지 미리보기 영역 */
+.preview-container {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/* 모달 트랜지션 효과 */
+.modal-fade-enter-active,
+.modal-fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+.modal-fade-enter-from,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+
 @media (min-width: 600px) {
     .main-actions {
         gap: 2rem;
