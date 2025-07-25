@@ -43,3 +43,22 @@
 .image-item img:hover {
   transform: scale(1.03);
 }
+
+.send-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 12px 20px;
+  background-color: #409eff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.send-button:hover {
+  background-color: #66b1ff;
+}

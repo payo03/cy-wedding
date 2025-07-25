@@ -174,5 +174,4 @@ const cleanupModal = () => {
 const goToImageList = () => {
   router.push({ name: 'ImageList' })
 }
-
 </script>

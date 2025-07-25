@@ -20,6 +20,10 @@
           @voted="fetchImageList"
         />
       </transition>
+
+      <button v-if="user?.admin" class="send-button" @click="onUploadClick">
+        📷 사진 전송
+      </button>
     </div>
   </div>
 </template>
@@ -63,4 +67,22 @@ const openModal = (image) => {
 const closeModal = () => {
   showModal.value = false
 }
+
+const onUploadClick = async () => {
+  try {
+    const response = await axios.post('/image/email', {
+      emailAddress: 'lyl1501@naver.com',
+      plan: 'eco',
+    })
+    const { message } = response.data
+
+    alert(message )
+  } catch (e) {
+    console.error('이메일 전송 에러:', e)
+
+    const errorMessage = e.response?.data?.message || '❌ 이메일 전송 실패 ❌'
+    alert(errorMessage)
+  }
+}
+
 </script>
