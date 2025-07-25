@@ -46,3 +46,9 @@ npm run dev
 # 백엔드 실행
 cd back
 ./gradlew bootRun  # Windows는 gradlew.bat 사용
+
+## 🔗 QR 생성 사이트
+
+하객 참여용 QR은 다음 사이트에서 쉽게 생성할 수 있습니다:
+
+👉 [https://genqrcode.com/ko/multiple](https://genqrcode.com/ko/multiple)
