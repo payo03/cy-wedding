@@ -37,7 +37,7 @@
 | Backend | Spring Boot |
 | Frontend | Vue.js |
 | Build Tool | Gradle |
-| Infra | **Heroku** (서버 배포), **NeonDB** (PostgreSQL 기반 클라우드 DB) |
+| Infra | **Heroku**, **NeonDB** |
 
 ---
 
