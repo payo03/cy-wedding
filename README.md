@@ -1,4 +1,4 @@
-# 💍 cy-wedding
+# 💍 Photo Event
 
 하객이 직접 참여하는 **결혼식 사진 이벤트 플랫폼**입니다.  
 결혼식장에서 QR코드를 스캔하면, **로그인 없이** 웹 페이지에 접속하여  
@@ -6,6 +6,14 @@
 **Spring Boot + Vue.js** 기반으로 개발되었습니다.
 
 ![홈 화면](./HOME.png)
+
+---
+
+## 🔗 QR 생성 사이트
+
+하객 참여용 QR은 다음 사이트에서 쉽게 생성할 수 있습니다:
+
+👉 [https://genqrcode.com/ko/multiple](https://genqrcode.com/ko/multiple)
 
 ---
 
@@ -29,7 +37,7 @@
 | Backend | Spring Boot |
 | Frontend | Vue.js |
 | Build Tool | Gradle |
-| Infra | **Heroku** (서버 배포), **NeonDB** (PostgreSQL 기반 클라우드 DB) |
+| Infra | **Heroku**, **NeonDB** |
 
 ---
 
@@ -41,7 +49,7 @@
 # 프론트엔드 실행
 cd front
 npm install
-npm run serve
+npm run dev
 
 # 백엔드 실행
 cd back
