@@ -47,6 +47,8 @@ npm run dev
 cd back
 ./gradlew bootRun  # Windows는 gradlew.bat 사용
 
+```bash
+
 ---
 
 ## 🔗 QR 생성 사이트
