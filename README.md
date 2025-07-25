@@ -9,6 +9,14 @@
 
 ---
 
+## 🔗 QR 생성 사이트
+
+하객 참여용 QR은 다음 사이트에서 쉽게 생성할 수 있습니다:
+
+👉 [https://genqrcode.com/ko/multiple](https://genqrcode.com/ko/multiple)
+
+---
+
 ## ✨ 주요 기능
 
 - 📸 **사진 업로드**  
@@ -47,12 +55,4 @@ npm run dev
 cd back
 ./gradlew bootRun  # Windows는 gradlew.bat 사용
 
-```bash
-
 ---
-
-## 🔗 QR 생성 사이트
-
-하객 참여용 QR은 다음 사이트에서 쉽게 생성할 수 있습니다:
-
-👉 [https://genqrcode.com/ko/multiple](https://genqrcode.com/ko/multiple)
