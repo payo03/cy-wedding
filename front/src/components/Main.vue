@@ -31,36 +31,42 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
 import axios from '@/utils/axios'
 import ImageUploadModal from '@/components/ImageUploadModal.vue'
 import '../styles/Main.css'
 import '../styles/Common.css'
 
+const userInfo = ref(null)
 const fileInput = ref(null)
 const selectedFile = ref(null)
 const previewUrl = ref(null)
 const router = useRouter()
 const showModal = ref(false)
 
-const fileUpload = async () => {
-
+onMounted(async () => {
   try {
-    const response = await axios.get('/image/check')
+    const response = await axios.get('/user/check')
 
-    const { success, message } = response.data
-    if (!success) {
-      alert(message)
-      return
-    }
-
-    fileInput.value?.click()
+    userInfo.value = response.data
   } catch (error) {
-    console.error(error)
+    console.error('유저 정보 로딩 실패:', error)
 
-    const errorMessage = error.response?.data?.message || '❌ 서버 오류 발생 ❌'
-    alert(errorMessage)
+    alert('❌ QR로 접속해주세요 ❌')
+  }
+})
+
+const fileUpload = () => {
+
+  const isAdmin = userInfo.value.admin
+  const isUpload = userInfo.value.upload
+
+  if (!isAdmin && isUpload) {
+    alert('❌ 업로드한 사진이 존재합니다. ❌')
+    return
   }
 
+  fileInput.value?.click()
 }
 
 const handleFileSelect = (event) => {
