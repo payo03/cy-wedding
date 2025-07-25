@@ -54,5 +54,3 @@ npm run dev
 # 백엔드 실행
 cd back
 ./gradlew bootRun  # Windows는 gradlew.bat 사용
-
----
