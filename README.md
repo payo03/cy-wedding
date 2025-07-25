@@ -41,7 +41,7 @@
 # 프론트엔드 실행
 cd front
 npm install
-npm run serve
+npm run dev
 
 # 백엔드 실행
 cd back
