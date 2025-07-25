@@ -42,8 +42,25 @@ const previewUrl = ref(null)
 const router = useRouter()
 const showModal = ref(false)
 
-const fileUpload = () => {
-  fileInput.value?.click()
+const fileUpload = async () => {
+
+  try {
+    const response = await axios.get('/image/check')
+
+    const { success, message } = response.data
+    if (!success) {
+      alert(message)
+      return
+    }
+
+    fileInput.value?.click()
+  } catch (error) {
+    console.error(error)
+
+    const errorMessage = error.response?.data?.message || '❌ 서버 오류 발생 ❌'
+    alert(errorMessage)
+  }
+
 }
 
 const handleFileSelect = (event) => {
@@ -78,6 +95,7 @@ const confirmUpload = async () => {
     }
   } catch (error) {
     console.error(error)
+
     const errorMessage = error.response?.data?.message || '❌ 서버 오류 발생 ❌'
     alert(errorMessage)
   }
