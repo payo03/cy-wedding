@@ -14,13 +14,13 @@ COPY settings.gradle .
 COPY back ./back 
 COPY front ./front
 
-# 이제 백엔드 프로젝트 디렉토리로 이동하여 빌드 실행
-WORKDIR /app/back 
+# 이제 최상위 작업 디렉토리(/app)에서 빌드를 실행합니다.
 RUN gradle build -x test 
 
 # 2단계: 실제 Spring Boot 실행 (JDK 21)
 FROM eclipse-temurin:21-jdk
 WORKDIR /app
+# builder 스테이지에서 백엔드 빌드 결과는 /app/back/build/libs 에 있습니다.
 COPY --from=builder /app/back/build/libs/*.jar app.jar
 
 EXPOSE 8080
