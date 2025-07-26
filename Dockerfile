@@ -2,11 +2,11 @@
 FROM gradle:8.4-jdk21 AS builder
 
 # Node.js 및 npm 설치 (Node.js v22.x (LTS) 설치)
-# https://github.com/nodesource/distributions#debinstall
+# NodeSource의 최신 GPG 키 및 저장소 추가 (URL 업데이트)
 RUN apt-get update && \
-    apt-get install -y ca-certificates curl gnupg && \
+    apt-get install -y ca-certificates curl gnupg && \ # gnupg를 먼저 설치
     mkdir -p /etc/apt/keyrings && \
-    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.old | gnupg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_22.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     apt-get update && \
     apt-get install -y nodejs && \
