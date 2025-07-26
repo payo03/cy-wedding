@@ -37,7 +37,7 @@
 | Backend | Spring Boot |
 | Frontend | Vue.js |
 | Build Tool | Gradle |
-| Infra | **Heroku**, **NeonDB** |
+| Infra | **Render**, **NeonDB** |
 
 ---
 
