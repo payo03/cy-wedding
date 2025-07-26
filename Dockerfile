@@ -14,19 +14,19 @@ COPY settings.gradle .
 COPY back ./back 
 COPY front ./front
 
-# ---- 디버깅을 위한 로그 메시지 추가 시작 ----
+# ---- 디버깅을 위한 로그 메시지 추가 시작 (COPY 명령 이후에 배치) ----
 # /app 디렉토리의 내용을 확인합니다. (back, front, settings.gradle이 보여야 함)
-RUN echo "--- Listing contents of /app ---" && ls -la /app/
+# WORKDIR이 이미 /app으로 설정되었으므로, '.'으로 현재 디렉토리를 참조할 수 있습니다.
+RUN echo "--- Listing contents of /app ---" && ls -la .
 
 # /app/front 디렉토리의 내용을 확인합니다. (package.json이 보여야 함)
-RUN echo "--- Listing contents of /app/front ---" && ls -la /app/front/
+RUN echo "--- Listing contents of /app/front ---" && ls -la ./front/
 
 # /app/front/package.json 파일의 내용을 출력합니다.
-RUN echo "--- Contents of /app/front/package.json ---" && cat /app/front/package.json
+RUN echo "--- Contents of /app/front/package.json ---" && cat ./front/package.json
 # ---- 디버깅을 위한 로그 메시지 추가 끝 ----
 
 # 프론트엔드 프로젝트 디렉토리로 이동하여 npm 종속성을 설치합니다.
-# 이 단계에서 package.json에 명시된 'vite'를 포함한 모든 패키지가 설치됩니다.
 WORKDIR /app/front
 RUN npm install
 
@@ -37,7 +37,6 @@ RUN gradle build -x test
 # 2단계: 실제 Spring Boot 실행 (JDK 21)
 FROM eclipse-temurin:21-jdk
 WORKDIR /app
-# builder 스테이지에서 백엔드 빌드 결과는 /app/back/build/libs 에 있습니다.
 COPY --from=builder /app/back/build/libs/*.jar app.jar
 
 EXPOSE 8080
