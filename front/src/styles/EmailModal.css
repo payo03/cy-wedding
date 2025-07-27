@@ -1,0 +1,184 @@
+/* EmailModal.css */
+
+/* 모달 컨텐츠 기본 스타일 */
+.email-modal-content {
+  background-color: #fffaf0;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 30px rgba(180, 150, 100, 0.15);
+  width: 90%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeInScale 0.25s ease-out forwards;
+  position: relative;
+  border: 1.5px solid rgba(248, 225, 234, 0.8);
+}
+
+/* 닫기 버튼 스타일 */
+.close-button {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  color: #555;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  z-index: 1001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.close-button:hover {
+  background-color: #f0f0f0;
+  color: #333;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 스타일 */
+.email-modal-content h2 {
+  color: #4d4d4d;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-family: 'Gowun Dodum', sans-serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* 폼 그룹 기본 스타일 (세로 정렬) */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+/* 플랜 선택을 위한 가로 정렬 및 왼쪽 정렬 */
+.form-group.row-aligned {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+/* 라벨 스타일 */
+.form-group label {
+  font-weight: bold;
+  color: #6d6d6d;
+  font-family: 'Gowun Dodum', sans-serif;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  flex-grow: 0;
+  min-width: 5rem;
+  text-align: left;
+}
+
+/* Input 필드 스타일 */
+.form-group input {
+  padding: 1.2rem 1.5rem;
+  height: 3.5rem;
+  border: 2px solid rgba(248, 225, 234, 0.7);
+  border-radius: 1.2rem;
+  font-size: 1.1rem;
+  flex-grow: 1;
+  box-sizing: border-box;
+  font-family: 'Gowun Dodum', sans-serif;
+  background-color: #fcfcfc;
+  color: #4d4d4d;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Select 필드 스타일 */
+.form-group select {
+  padding: 0.5rem 1.5rem;
+  height: 3.5rem;
+  border: 2px solid rgba(248, 225, 234, 0.7);
+  border-radius: 1.2rem;
+  font-size: 1.1rem;
+  flex-grow: 1;
+  box-sizing: border-box;
+  font-family: 'Gowun Dodum', sans-serif;
+  background-color: #fcfcfc;
+  color: #4d4d4d; /* 선택된 텍스트 색상 */
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none; /* 기본 화살표 제거 */
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none; /* 기존 이미지 화살표 제거 */
+  position: relative;
+  /* 텍스트가 화살표와 겹치지 않도록 우측 패딩 충분히 확보 */
+  padding-right: 2.5rem;
+}
+
+.form-group select::after {
+  content: '▼'; /* 유니코드 아래쪽 화살표 */
+  position: absolute;
+  right: 1rem; /* 화살표 위치를 select 내부 우측에서 1rem */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem; /* 화살표 크기 */
+  color: #4d4d4d; /* 화살표 색상 */
+  pointer-events: none; /* 화살표 클릭 시 select 활성화 방지 */
+}
+
+/* Input/Select 포커스 시 스타일 */
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* 버튼 컨테이너 스타일 */
+.button-row {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* 전송 버튼 스타일 */
+.send-action-button {
+  font-size: 1.2rem;
+  padding: 1.5rem 2.5rem;
+  min-height: 3.5rem;
+  border-radius: 1.5rem;
+  background: linear-gradient(90deg, #fffbe6 0%, #fff1b8 100%);
+  border: 2px solid #ffe58f;
+  color: #614700;
+  font-family: 'Gowun Dodum', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  gap: 0.8rem;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.12);
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+  outline: none;
+}
+
+/* 전송 버튼 호버 스타일 */
+.send-action-button:hover:not(:disabled) {
+  background: linear-gradient(90deg, #fff2cc 0%, #ffe699 100%);
+  border-color: #ffd766;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.18);
+}
+
+/* 전송 버튼 활성화 스타일 */
+.send-action-button:active:not(:disabled) {
+  filter: brightness(0.97);
+  transform: scale(0.98);
+  box-shadow: 0 2px 12px rgba(212, 175, 55, 0.08);
+  border-color: #d4af37;
+}

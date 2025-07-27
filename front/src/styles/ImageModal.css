@@ -43,14 +43,6 @@
   opacity: 0.8;
 }
 
-.button-row {
-  margin-top: 1.5rem;
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  align-items: center;
-}
-
 /* 공통 버튼 스타일 (투표, 삭제 모두에 적용) */
 .vote-button,
 .delete-button {

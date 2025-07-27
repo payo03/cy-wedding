@@ -2,6 +2,8 @@
     "java.compile.nullAnalysis.mode": "automatic",
     "java.configuration.updateBuildConfiguration": "interactive",
     "cSpell.words": [
-        "healthcheck"
+        "axios",
+        "healthcheck",
+        "PSQL"
     ]
 }

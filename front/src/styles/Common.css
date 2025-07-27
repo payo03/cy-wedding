@@ -34,3 +34,18 @@
 .modal-fade-leave-to {
   opacity: 0;
 }
+
+/* 버튼 정렬 */
+.button-row {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
