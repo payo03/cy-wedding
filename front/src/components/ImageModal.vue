@@ -3,7 +3,7 @@
     <button class="close-button" @click="emit('close')">×</button>
 
     <div class="modal-content">
-      <img :src="image.url" class="modal-image" alt="확대 이미지" />
+      <img :src="image.imageUrl" class="modal-image" alt="확대 이미지" />
       
       <div class="button-row">
         <button class="vote-button" :disabled="isLoading" @click="handleVote">👍</button>

@@ -7,7 +7,7 @@
         class="image-item"
         @click="openModal(image)"
       >
-        <img v-if="image.url" :src="image.url" alt="이미지" />
+        <img v-if="image.imageUrl" :src="image.imageUrl" alt="이미지" />
       </div>
 
       <!-- 모달 -->
@@ -62,10 +62,7 @@ const fetchImageList = async () => {
     const { success, images: imageList, user: userInfo } = response.data
 
     if (success) {
-      images.value = imageList.map(image => ({
-        ...image,
-        url: createDataUrl(image.base64File, image.fileName)
-      }))
+      images.value = imageList
       user.value = userInfo
     }
   } catch (e) {
@@ -95,20 +92,5 @@ const openEmailModal = () => {
 }
 const closeEmailModal = () => {
   showEmailModal.value = false
-}
-
-// Image 로딩속도 최적화
-const createDataUrl = (base64File, fileName) => {
-  const extension = fileName.split('.').pop().toLowerCase()
-  const mimeTypeMap = {
-    jpg: 'image/jpeg',
-    jpeg: 'image/jpeg',
-    png: 'image/png',
-    gif: 'image/gif',
-    webp: 'image/webp'
-  }
-
-  const mimeType = mimeTypeMap[extension] || 'application/octet-stream'
-  return `data:${mimeType};base64,${base64File}`
 }
 </script>
