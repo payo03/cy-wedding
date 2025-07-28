@@ -44,7 +44,7 @@
     border: 1px solid #ddd;
     padding: 0.6rem 1.2rem;
     border-radius: 30px;
-    font-size: clamp(0.8rem, 2.5vw, 1.6rem);
+    font-size: 0.8rem;
     font-weight: 600;
     color: #8b5e3c;
     white-space: nowrap;
@@ -69,16 +69,16 @@
     .insta-header {
         padding-top: 2rem;
     }
-
-    .insta-title {
-        font-size: 1rem;
-    }
 }
 
 /* 대형 기기 (태블릿 가로 / 작은 노트북) */
 @media (min-width: 768px) {
     .insta-layout {
         max-width: 640px;
+    }
+
+    .insta-title {
+        font-size: 1rem;
     }
 }
 
@@ -93,6 +93,6 @@
     }
 
     .insta-title {
-      font-size: 1.2rem;
+        font-size: 1rem;
     }
 }
