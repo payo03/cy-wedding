@@ -25,14 +25,14 @@
   top: 50%;
   right: 12px;
   transform: translateY(-50%);
-  background-color: #6366f1;
-  color: white;
-  border: none;
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
   padding: 4px 6px;
   font-size: 1.2rem;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   line-height: 1;
   display: flex;
   align-items: center;
@@ -42,7 +42,9 @@
 }
 
 .home-button:hover {
-  background-color: #4f46e5;
+  background-color: #e5e7eb;
+  color: #111827;
+  border-color: #cbd5e1;
 }
 
 @media (min-width: 600px) {
