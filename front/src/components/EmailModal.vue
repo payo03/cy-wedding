@@ -18,7 +18,7 @@
       </div>
 
       <div class="button-row">
-        <button class="send-action-button" :disabled="loading" @click="handleSendEmail">✉️ 전송</button>
+        <button class="send-action-button" :disabled="isLoading" @click="handleSendEmail">✉️ 전송</button>
       </div>
     </div>
   </div>
@@ -34,15 +34,15 @@ const emit = defineEmits(['close', 'emailSent']);
 
 const emailAddress = ref('');
 const selectedPlan = ref('ECO');
-const loading = ref(false);
+const isLoading = ref(false);
 
 const handleSendEmail = async () => {
-  if (!emailAddress.value || loading.value) {
+  if (!emailAddress.value || isLoading.value) {
     alert('이메일 주소를 입력해주세요.');
     return;
   }
 
-  loading.value = true;
+  isLoading.value = true;
   try {
     // 이메일전송 비동기
     const response = await axios.post('/image/email', {
@@ -59,7 +59,7 @@ const handleSendEmail = async () => {
 
     alert(errorMessage);
   } finally {
-    loading.value = false;
+    isLoading.value = false;
   }
 };
 </script>

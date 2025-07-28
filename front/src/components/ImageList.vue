@@ -7,7 +7,7 @@
         class="image-item"
         @click="openModal(image)"
       >
-        <img :src="image.url" alt="이미지" />
+        <img v-if="image.url" :src="image.url" alt="이미지" />
       </div>
 
       <!-- 모달 -->
@@ -32,6 +32,12 @@
       </button>
     </div>
   </div>
+
+  <!-- Loading -->
+  <div v-if="isLoading" class="fullscreen-loader">
+    <div class="spinner"></div>
+    <p>로딩 중입니다...</p>
+  </div>
 </template>
 
 <script setup>
@@ -47,6 +53,7 @@ const user = ref(null)
 const selectedImage = ref(null)
 const showModal = ref(false)
 const showEmailModal = ref(false)
+const isLoading = ref(true)
 
 const fetchImageList = async () => {
   try {
@@ -55,13 +62,19 @@ const fetchImageList = async () => {
     const { success, images: imageList, user: userInfo } = response.data
 
     if (success) {
-      images.value = imageList
+      images.value = imageList.map(image => ({
+        ...image,
+        url: createDataUrl(image.base64File, image.fileName)
+      }))
       user.value = userInfo
     }
   } catch (e) {
     console.error('이미지 목록 에러:', e)
+
     const errorMessage = e.response?.data?.message || '❌ 서버 오류 발생 ❌'
     alert(errorMessage)
+  } finally {
+    isLoading.value = false
   }
 }
 
@@ -82,5 +95,20 @@ const openEmailModal = () => {
 }
 const closeEmailModal = () => {
   showEmailModal.value = false
+}
+
+// Image 로딩속도 최적화
+const createDataUrl = (base64File, fileName) => {
+  const extension = fileName.split('.').pop().toLowerCase()
+  const mimeTypeMap = {
+    jpg: 'image/jpeg',
+    jpeg: 'image/jpeg',
+    png: 'image/png',
+    gif: 'image/gif',
+    webp: 'image/webp'
+  }
+
+  const mimeType = mimeTypeMap[extension] || 'application/octet-stream'
+  return `data:${mimeType};base64,${base64File}`
 }
 </script>

@@ -3,8 +3,8 @@
     <img :src="previewUrl" class="modal-image" alt="미리보기" />
 
     <div class="button-row">
-      <button class="modal-button upload" :disabled="loading" @click="handleConfirm">✅</button>
-      <button class="modal-button cancel" :disabled="loading" @click="emit('close')">❌</button>
+      <button class="modal-button upload" :disabled="isLoading" @click="handleConfirm">✅</button>
+      <button class="modal-button cancel" :disabled="isLoading" @click="emit('close')">❌</button>
     </div>
   </div>
 </template>
@@ -17,11 +17,11 @@ import '../styles/Common.css'
 
 defineProps({ previewUrl: String })
 const emit = defineEmits(['close', 'confirm'])
-const loading = ref(false)
+const isLoading = ref(false)
 
 const handleConfirm = () => {
-  if (loading.value) return
-  loading.value = true
+  if (isLoading.value) return
+  isLoading.value = true
   
   emit('confirm')
 }

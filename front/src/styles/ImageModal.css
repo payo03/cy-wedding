@@ -7,7 +7,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation: fadeInScale 0.25s ease-out forwards;
+  animation: 0.25s ease-out forwards;
 }
 
 /* 이미지 - 비율 유지하면서 화면 초과 방지 */

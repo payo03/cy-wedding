@@ -6,8 +6,8 @@
       <img :src="image.url" class="modal-image" alt="확대 이미지" />
       
       <div class="button-row">
-        <button class="vote-button" :disabled="loading" @click="handleVote">👍</button>
-        <button v-if="user.admin" :disabled="loading" class="delete-button" @click="handleDelete">🗑️</button>
+        <button class="vote-button" :disabled="isLoading" @click="handleVote">👍</button>
+        <button v-if="user.admin" :disabled="isLoading" class="delete-button" @click="handleDelete">🗑️</button>
       </div>
 
     </div>
@@ -25,25 +25,25 @@ const props = defineProps({
     user: Object
 })
 const emit = defineEmits(['close', 'voted'])
-const loading = ref(false)
+const isLoading = ref(false)
 
 const handleVote = async () => {
-  if (!props.image || loading.value) return
+  if (!props.image || isLoading.value) return
 
-  loading.value = true
+  isLoading.value = true
   const confirmMessage = props.user.vote ?
     '♻️ 선택한 사진으로 재투표 하시겠습니까?' :
     '🎀 선택한 사진에 투표 하시겠습니까?'
 
   const confirmVote = window.confirm(confirmMessage)
   if (!confirmVote) {
-    loading.value = false
+    isLoading.value = false
     return
   }
 
   try {
     const res = await axios.post('/image/vote', {
-      fileName: props.image.name,
+      fileName: props.image.fileName,
     })
 
     const { success, message } = res.data
@@ -56,24 +56,24 @@ const handleVote = async () => {
 
     alert(errorMessage)
   } finally {
-    loading.value = false
+    isLoading.value = false
     emit('close')
   }
 }
 
 const handleDelete = async () => {
   if (!props.image) return
-  loading.value = true
+  isLoading.value = true
 
   const confirmDelete = window.confirm('정말 이 사진을 삭제하시겠습니까?')
   if (!confirmDelete) {
-    loading.value = false
+    isLoading.value = false
     return
   }
 
   try {
     const res = await axios.post('/image/delete', {
-      fileName: props.image.name,
+      fileName: props.image.fileName,
     })
 
     const { success, message } = res.data
@@ -88,7 +88,7 @@ const handleDelete = async () => {
 
     alert(errorMessage)
   } finally {
-    loading.value = false
+    isLoading.value = false
     emit('close')
   }
 }
