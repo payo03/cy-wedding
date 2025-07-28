@@ -91,9 +91,9 @@ cd back
 
 | **서비스**     | **리소스 종류**       | **Free Tier 제공량 (2025 기준)**                                                                 | **초과 시 정책 및 제한 사항**                                                                 |
 |----------------|------------------------|--------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
-| Render         | Web 서비스 (Docker)    | - RAM: 512 MB (0.1 vCPU)<br>- 월 750 인스턴스 시간<br>- 유휴 시 15분 후 자동 슬립              | - 월 750시간 소진 시 Free 서비스 정지<br>- 외부 API 호출 많거나 서비스 트래픽 과다 시 유료 플랜 필요<br>:contentReference[oaicite:2]{index=2} |
-| NeonDB         | PostgreSQL Database    | - 저장공간: 0.5 GB‑month (정규 + 아카이브)<br>- 월 191.9 compute hours (0.25 CU 기준 24/7 운영 가능)<br>- 월 5 GB egress<br>- 프로젝트당 최대 10개, 브랜치당 최대 500 DB | - Compute > 191.9 시간 시 중단<br>- 비-default branch는 월 5시간 초과 시 중단됨<br>:contentReference[oaicite:4]{index=4} |
-| Cloudinary     | 이미지 저장 및 CDN     | - 매월 25 크레딧 제공 → 25 GB 저장 OR 25 GB bandwidth OR 25,000 이미지 변환<br>- 이미지 파일 최대 10 MB, 비디오 최대 100 MB | - 크레딧 초과 시 업그레이드 권유<br>- Free 플랜은 시간 제한 없음, 무제한 사용(크레딧 범위 내):contentReference[oaicite:5]{index=5} |
+| Render         | Web 서비스 (Docker)    | - RAM: 512 MB (0.1 vCPU)<br>- 월 750 인스턴스 시간<br>- 유휴 시 15분 후 자동 슬립              | - 월 750시간 소진 시 Free 서비스 정지<br>- 외부 API 호출 많거나 서비스 트래픽 과다 시 유료 플랜 필요 |
+| NeonDB         | PostgreSQL Database    | - 저장공간: 0.5 GB‑month (정규 + 아카이브)<br>- 월 191.9 compute hours (0.25 CU 기준 24/7 운영 가능)<br>- 월 5 GB egress<br>- 프로젝트당 최대 10개, 브랜치당 최대 500 DB | - Compute > 191.9 시간 시 중단 |
+| Cloudinary     | 이미지 저장 및 CDN     | - 매월 25 크레딧 제공 → 25 GB 저장 OR 25 GB bandwidth OR 25,000 이미지 변환<br>- 이미지 파일 최대 10 MB, 비디오 최대 100 MB | - 크레딧 초과 시 업그레이드 권유<br>- Free 플랜은 시간 제한 없음, 무제한 사용(크레딧 범위 내) |
 
 
 > ✅ 모든 수치는 2025년 기준 **Free Tier** 기준입니다. 변동 가능성이 있으므로 각 서비스의 공식 문서를 참고하세요.
