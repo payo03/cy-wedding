@@ -13,11 +13,11 @@
       <span class="icon">🧾</span> QR 생성 <span class="icon">🧾</span>
     </button>
 
-    <button class="main-btn upload" @click="fileUpload">
+    <button class="main-btn upload" @click="fileUpload" :disabled="!userInfo">
       <span class="icon">💍</span> 사진 업로드 <span class="icon">💍</span>
     </button>
 
-    <button class="main-btn vote" @click="goToImageList">
+    <button class="main-btn vote" @click="goToImageList" :disabled="!userInfo">
       <span class="icon">🎀</span> 사진 투표 <span class="icon">🎀</span>
     </button>
 
@@ -69,6 +69,11 @@ onMounted(async () => {
     const response = await axios.get('/user/check')
 
     userInfo.value = response.data
+    
+    if (!response.data || !response.data.qrCode) {
+      alert('❌ 잘못된 접근입니다 ❌')
+      return
+    }
   } catch (error) {
     console.error('유저 정보 로딩 실패:', error)
 
