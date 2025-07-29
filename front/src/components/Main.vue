@@ -151,7 +151,7 @@ const confirmUpload = async () => {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
 
-    const { success, message } = response.data    
+    const { success, message } = response.data
     if (success) {
       setTimeout(() => {
         showModal.value = false
