@@ -37,6 +37,11 @@
       />
     </transition>
   </div>
+
+  <div v-if="isLoading" class="fullscreen-loader">
+    <div class="spinner"></div>
+    <p>업로드 중입니다...</p>
+  </div>
 </template>
 
 <script setup>
@@ -56,6 +61,7 @@ const router = useRouter()
 const showModal = ref(false)
 const qrPrefix = ref('')
 const qrCount = ref(1)
+const isLoading = ref(false)
 
 onMounted(async () => {
   try {
@@ -76,7 +82,7 @@ const generateQR = async () => {
   }
 
   try {
-    // 1. 서버에 QR 생성 요청 (응답은 필요 없음)
+    // 1. 서버에 QR 생성 요청
     await axios.post('/qr/create', {
       prefix: qrPrefix.value,
       count: qrCount.value,
@@ -139,25 +145,32 @@ const confirmUpload = async () => {
   const formData = new FormData()
   formData.append('file', selectedFile.value)
 
+  isLoading.value = true
   try {
     const response = await axios.post('/image/upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
 
-    const { success, message } = response.data
-    alert(message)
-
+    const { success, message } = response.data    
     if (success) {
-      selectedFile.value = null
-      previewUrl.value = null
-      showModal.value = false
+      setTimeout(() => {
+        showModal.value = false
+        selectedFile.value = null
+        previewUrl.value = null
 
-      router.push({ name: 'ImageList' })
+        alert(message)
+        isLoading.value = false
+        router.push({ name: 'ImageList' })
+      }, 2000)
+    } else {
+      alert(message)
+      isLoading.value = false
     }
   } catch (error) {
     console.error(error)
-
     const errorMessage = error.response?.data?.message || '❌ 서버 오류 발생 ❌'
+
+    isLoading.value = false
     alert(errorMessage)
   }
 }
