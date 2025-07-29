@@ -61,7 +61,7 @@ const isLoading = ref(false)
 const handleGenerateQR = async () => {
   if (isLoading.value) return
 
-  if (!qrPrefix.value.trim() || qrCount.value < 1) {
+  if (!qrDomain.value.trim() || !qrPrefix.value.trim() || qrCount.value < 1) {
     alert('텍스트와 개수를 올바르게 입력하세요.')
     return
   }

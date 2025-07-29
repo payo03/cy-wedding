@@ -16,15 +16,15 @@ const routes = [
     component: ImageListView
   },
   {
-    path: '/qr/:domain/:qrcode',
+    path: '/qr/:groupName/:qrCode',
     name: 'qr',
     beforeEnter: (to, from, next) => {
       // 1. domain, qrcode 값을 추출
-      const domain = to.params.domain;
-      const qrcode = to.params.qrcode;
+      const groupName = to.params.groupName;
+      const qrCode = to.params.qrCode;
 
       // 2. localStorage에 저장
-      setHeader(domain, qrcode);
+      setHeader(groupName, qrCode);
 
       // 3. 메인 페이지로 리다이렉트
       next({ name: 'MainView' });

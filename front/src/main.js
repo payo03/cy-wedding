@@ -6,10 +6,10 @@ import router from './router/index.js'
 
 import { setHeader } from '@/utils/axios'
 
-const savedDomain = localStorage.getItem('domain')
-const savedQrcode = localStorage.getItem('qrcode')
-if (savedDomain && savedQrcode) {
-  setHeader(savedDomain, savedQrcode)
+const domain = localStorage.getItem('groupName')
+const code = localStorage.getItem('qrCode')
+if (domain && code) {
+  setHeader(domain, code)
 }
 
 const app = createApp(App)

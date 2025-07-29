@@ -7,20 +7,20 @@ const instance = axios.create({
   baseURL: '/api'
 })
 
-const domain = localStorage.getItem('domain')
-const qrCode = localStorage.getItem('qrcode')
-if (domain) {
-  instance.defaults.headers.common[DOMAIN_HEADER] = domain
+const groupName = localStorage.getItem('groupName')
+const qrCode = localStorage.getItem('qrCode')
+if (groupName) {
+  instance.defaults.headers.common[DOMAIN_HEADER] = groupName
 }
 if (qrCode) {
   instance.defaults.headers.common[QR_CODE_HEADER] = qrCode
 }
 
-export function setHeader(domain, qrCode) {
-  localStorage.setItem('domain', domain)
-  localStorage.setItem('qrcode', qrCode)
+export function setHeader(groupName, qrCode) {
+  localStorage.setItem('groupName', groupName)
+  localStorage.setItem('qrCode', qrCode)
 
-  instance.defaults.headers.common[DOMAIN_HEADER] = domain
+  instance.defaults.headers.common[DOMAIN_HEADER] = groupName
   instance.defaults.headers.common[QR_CODE_HEADER] = qrCode
 }
 
