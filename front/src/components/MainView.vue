@@ -85,7 +85,7 @@ const closeQRModal = () => {
 
 const fileUpload = () => {
 
-  const isAdmin = userInfo.value.admin
+  const isAdmin = userInfo.value.admin || userInfo.value.domainAdmin
   const isUpload = userInfo.value.upload
 
   if (!isAdmin && isUpload) {

@@ -92,9 +92,9 @@ const handleGenerateQR = async () => {
     emit('close')
   } catch (err) {
     console.error(err)
-    alert('❌ 서버 통신 중 오류가 발생했습니다.')
+    alert('❌ 서버 통신 중 오류가 발생했습니다. ❌')
   } finally {
     isLoading.value = false
   }
 }
-</script>  
+</script>

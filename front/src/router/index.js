@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ImageListView from '../components/ImageList.vue'
 import MainView from '../components/MainView.vue'
 
-import { setQrcodeToken } from '@/utils/axios'
+import { setHeader } from '@/utils/axios'
 
 const routes = [
   {
@@ -16,14 +16,15 @@ const routes = [
     component: ImageListView
   },
   {
-    path: '/qr/:qrcode',
+    path: '/qr/:domain/:qrcode',
     name: 'qr',
     beforeEnter: (to, from, next) => {
-      // 1. qrcode 값을 추출
+      // 1. domain, qrcode 값을 추출
+      const domain = to.params.domain;
       const qrcode = to.params.qrcode;
 
       // 2. localStorage에 저장
-      setQrcodeToken(qrcode);
+      setHeader(domain, qrcode);
 
       // 3. 메인 페이지로 리다이렉트
       next({ name: 'MainView' });

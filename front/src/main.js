@@ -4,11 +4,12 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router/index.js'
 
-import { setQrcodeToken } from '@/utils/axios'
+import { setHeader } from '@/utils/axios'
 
+const savedDomain = localStorage.getItem('domain')
 const savedQrcode = localStorage.getItem('qrcode')
-if (savedQrcode) {
-  setQrcodeToken(savedQrcode)
+if (savedDomain && savedQrcode) {
+  setHeader(savedDomain, savedQrcode)
 }
 
 const app = createApp(App)

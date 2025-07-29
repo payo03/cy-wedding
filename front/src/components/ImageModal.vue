@@ -7,7 +7,7 @@
       
       <div class="button-row">
         <button class="vote-button" :disabled="isLoading" @click="handleVote">👍</button>
-        <button v-if="user.admin" :disabled="isLoading" class="delete-button" @click="handleDelete">🗑️</button>
+        <button v-if="isAdminUser" :disabled="isLoading" class="delete-button" @click="handleDelete">🗑️</button>
       </div>
 
     </div>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import axios from '@/utils/axios'
 import '../styles/ImageModal.css'
 import '../styles/Common.css'
@@ -26,6 +26,10 @@ const props = defineProps({
 })
 const emit = defineEmits(['close', 'voted'])
 const isLoading = ref(false)
+
+const isAdminUser = computed(() => {
+  return props.user?.admin || props.user?.domainAdmin
+})
 
 const handleVote = async () => {
   if (!props.image || isLoading.value) return
