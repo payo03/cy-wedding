@@ -76,14 +76,14 @@ const handleGenerateQR = async () => {
 
     const origin = window.location.origin
     const urls = Array.from({ length: qrCount.value }, (_, i) =>
-      `${origin}/qr/${qrPrefix.value}${i + 1}`
+      `${origin}/qr/${qrDomain.value}/${qrPrefix.value}${i + 1}`
     )
     const blob = new Blob([urls.join('\n')], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
 
     const a = document.createElement('a')
     a.href = url
-    a.download = `qr_${qrPrefix.value}.txt`
+    a.download = `qr_${qrDomain.value}_${qrPrefix.value}.txt`
     a.click()
     URL.revokeObjectURL(url)
 
