@@ -24,6 +24,7 @@
   border-radius: 6px;
   box-sizing: border-box;
   padding: 2px;
+  position: relative;
 
   border: 1px solid #e5e5e5;
   box-shadow:
@@ -61,4 +62,31 @@
 
 .send-button:hover {
   background-color: #66b1ff;
+}
+
+/* 이미지의 테두리를 강조 - 내 이미지일 경우 */
+.image-item.my-image {
+  border: 3px solid #ff9800;
+}
+
+/* 메달 라벨 표시용 */
+.medal-label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  background-color: #fff;
+  padding: 2px 6px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.medal-label.gold {
+  border: 2px solid #ffd700;
+}
+.medal-label.silver {
+  border: 2px solid #c0c0c0;
+}
+.medal-label.bronze {
+  border: 2px solid #cd7f32;
 }

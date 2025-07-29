@@ -5,8 +5,18 @@
         v-for="(image, index) in images"
         :key="index"
         class="image-item"
+        :class="{ 'my-image': image.qrCode === user?.qrCode }"
         @click="openModal(image)"
       >
+        <!-- 메달 표시: voteTop3 배열에 포함되어 있을 때 -->
+        <div
+          v-if="getMedal(image)"
+          class="medal-label"
+          :class="getMedalClass(image)"
+        >
+          {{ getMedal(image) }}
+        </div>
+
         <img v-if="image.imageUrl" :src="image.imageUrl" alt="이미지" />
       </div>
 
@@ -24,7 +34,10 @@
       <!-- 이메일 전송모달(관리자) -->
       <transition name="modal-fade">
         <EmailSendModal
-          v-if="showEmailModal" @close="closeEmailModal" @emailSent="handleEmailSent" />
+          v-if="showEmailModal"
+          @close="closeEmailModal"
+          @emailSent="handleEmailSent"
+        />
       </transition>
 
       <button v-if="user?.admin" class="send-button" @click="openEmailModal">
@@ -41,7 +54,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import axios from '@/utils/axios'
 import ImageModal from '@/components/ImageModal.vue'
 import EmailSendModal from '@/components/EmailModal.vue'
@@ -77,9 +90,30 @@ const fetchImageList = async () => {
   }
 }
 
+const voteTop3 = computed(() => {
+  return [...images.value]
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 3)
+})
+
+const getMedal = (image) => {
+  const index = voteTop3.value.findIndex(i => i.fileName === image.fileName)
+  if (index === 0) return '🥇'
+  if (index === 1) return '🥈'
+  if (index === 2) return '🥉'
+  return null
+}
+
+const getMedalClass = (image) => {
+  const index = voteTop3.value.findIndex(i => i.fileName === image.fileName)
+  if (index === 0) return 'gold'
+  if (index === 1) return 'silver'
+  if (index === 2) return 'bronze'
+  return ''
+}
+
 onMounted(fetchImageList)
 
-// ImageModal
 const openModal = (image) => {
   selectedImage.value = image
   showModal.value = true
@@ -88,7 +122,6 @@ const closeModal = () => {
   showModal.value = false
 }
 
-// EmailModal(관리자)
 const openEmailModal = () => {
   showEmailModal.value = true
 }
