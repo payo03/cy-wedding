@@ -51,8 +51,10 @@ import '../styles/Common.css'
 const images = ref([])
 const user = ref(null)
 const selectedImage = ref(null)
+
 const showModal = ref(false)
 const showEmailModal = ref(false)
+
 const isLoading = ref(true)
 
 const fetchImageList = async () => {

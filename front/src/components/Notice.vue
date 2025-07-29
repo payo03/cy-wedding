@@ -11,6 +11,7 @@ import { useRouter } from 'vue-router'
 import '../styles/Notice.css'
 
 const router = useRouter()
+
 const goHome = () => {
   router.push({ name: 'MainView' })
 }

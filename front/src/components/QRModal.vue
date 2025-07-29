@@ -52,12 +52,14 @@ import '../styles/Common.css'
 
 const emit = defineEmits(['close'])
 
+const qrDomain = ref('')
 const qrPrefix = ref('')
 const qrCount = ref(1)
+
 const isLoading = ref(false)
 
 const handleGenerateQR = async () => {
-  if (isLoading.value) return;
+  if (isLoading.value) return
 
   if (!qrPrefix.value.trim() || qrCount.value < 1) {
     alert('텍스트와 개수를 올바르게 입력하세요.')
@@ -67,6 +69,7 @@ const handleGenerateQR = async () => {
   isLoading.value = true
   try {
     await axios.post('/qr/create', {
+      domain: qrDomain.value,
       prefix: qrPrefix.value,
       count: qrCount.value,
     })

@@ -52,13 +52,16 @@ import QRModal from '@/components/QRModal.vue'
 import '../styles/MainView.css'
 import '../styles/Common.css'
 
+const router = useRouter()
+
 const userInfo = ref(null)
 const fileInput = ref(null)
 const selectedFile = ref(null)
 const previewUrl = ref(null)
-const router = useRouter()
+
 const showModal = ref(false)
 const showQRModal = ref(false)
+
 const isLoading = ref(false)
 
 onMounted(async () => {

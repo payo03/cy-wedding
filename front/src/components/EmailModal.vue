@@ -25,41 +25,42 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import axios from '@/utils/axios';
-import '../styles/AdminModal.css';
-import '../styles/Common.css';
+import { ref } from 'vue'
+import axios from '@/utils/axios'
+import '../styles/AdminModal.css'
+import '../styles/Common.css'
 
-const emit = defineEmits(['close', 'emailSent']);
+const emit = defineEmits(['close', 'emailSent'])
 
-const emailAddress = ref('');
-const selectedPlan = ref('ECO');
-const isLoading = ref(false);
+const emailAddress = ref('')
+const selectedPlan = ref('ECO')
+
+const isLoading = ref(false)
 
 const handleSendEmail = async () => {
   if (!emailAddress.value || isLoading.value) {
-    alert('이메일 주소를 입력해주세요.');
-    return;
+    alert('이메일 주소를 입력해주세요.')
+    return
   }
 
-  isLoading.value = true;
+  isLoading.value = true
   try {
     // 이메일전송 비동기
     const response = await axios.post('/image/email', {
       emailAddress: emailAddress.value,
       plan: selectedPlan.value,
-    });
-    const { message } = response.data;
+    })
+    const { message } = response.data
 
-    alert(message);
-    emit('emailSent');
-    emit('close');
+    alert(message)
+    emit('emailSent')
+    emit('close')
   } catch (e) {
-    const errorMessage = e.response?.data?.message || '❌ 이메일 전송 실패 ❌';
+    const errorMessage = e.response?.data?.message || '❌ 이메일 전송 실패 ❌'
 
-    alert(errorMessage);
+    alert(errorMessage)
   } finally {
-    isLoading.value = false;
+    isLoading.value = false
   }
-};
+}
 </script>
