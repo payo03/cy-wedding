@@ -1,7 +1,5 @@
-/* EmailModal.css */
-
 /* 모달 컨텐츠 기본 스타일 */
-.email-modal-content {
+.admin-modal-content {
   background-color: #fffaf0;
   padding: 2.5rem;
   border-radius: 1.5rem;
@@ -41,16 +39,6 @@
   background-color: #f0f0f0;
   color: #333;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* 제목 스타일 */
-.email-modal-content h2 {
-  color: #4d4d4d;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  font-family: 'Gowun Dodum', sans-serif;
-  font-size: 1.8rem;
-  font-weight: bold;
 }
 
 /* 폼 그룹 기본 스타일 (세로 정렬) */
@@ -146,7 +134,7 @@
 }
 
 /* 전송 버튼 스타일 */
-.send-action-button {
+.action-button {
   font-size: 1.2rem;
   padding: 1.5rem 2.5rem;
   min-height: 3.5rem;
@@ -168,7 +156,7 @@
 }
 
 /* 전송 버튼 호버 스타일 */
-.send-action-button:hover:not(:disabled) {
+.action-button:hover:not(:disabled) {
   background: linear-gradient(90deg, #fff2cc 0%, #ffe699 100%);
   border-color: #ffd766;
   transform: translateY(-2px);
@@ -176,7 +164,7 @@
 }
 
 /* 전송 버튼 활성화 스타일 */
-.send-action-button:active:not(:disabled) {
+.action-button:active:not(:disabled) {
   filter: brightness(0.97);
   transform: scale(0.98);
   box-shadow: 0 2px 12px rgba(212, 175, 55, 0.08);

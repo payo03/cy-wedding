@@ -87,6 +87,14 @@
     box-shadow: 0 2px 8px rgba(212,175,55,0.08);
   }  
 
+.main-btn.qr {
+  background: linear-gradient(90deg, #eaf6f9 0%, #dceeff 100%);
+  border: 2.5px solid rgba(180, 220, 250, 0.6);
+  color: #34556b; /* 차분한 네이비톤 */
+  font-weight: bold;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 20px rgba(120, 180, 220, 0.1);
+}
 .main-btn.upload {
     background: linear-gradient(90deg, rgba(255, 250, 240, 0.85) 0%, rgba(245, 235, 224, 0.95) 100%);
     border-color: rgba(242, 230, 225, 0.6);

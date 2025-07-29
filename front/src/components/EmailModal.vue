@@ -1,6 +1,6 @@
 <template>
   <div class="modal" @click.self="emit('close')">
-    <div class="modal-content email-modal-content">
+    <div class="modal-content admin-modal-content">
       <button class="close-button" @click="emit('close')">×</button>
 
       <h2>사진 전송</h2>
@@ -18,7 +18,7 @@
       </div>
 
       <div class="button-row">
-        <button class="send-action-button" :disabled="isLoading" @click="handleSendEmail">✉️ 전송</button>
+        <button class="action-button" :disabled="isLoading" @click="handleSendEmail">✉️ 전송</button>
       </div>
     </div>
   </div>
@@ -27,7 +27,7 @@
 <script setup>
 import { ref } from 'vue';
 import axios from '@/utils/axios';
-import '../styles/EmailModal.css';
+import '../styles/AdminModal.css';
 import '../styles/Common.css';
 
 const emit = defineEmits(['close', 'emailSent']);

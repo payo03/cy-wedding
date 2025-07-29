@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ImageListView from '../components/ImageList.vue'
-import MainView from '../components/Main.vue'
+import MainView from '../components/MainView.vue'
 
 import { setQrcodeToken } from '@/utils/axios'
 
