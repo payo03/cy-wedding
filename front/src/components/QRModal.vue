@@ -11,12 +11,12 @@
           id="domain"
           type="text"
           v-model="qrDomain"
-          placeholder="ex, cy-wedding -> /qr/cy-wedding/[텍스트]"
+          placeholder="ex, /qr/[도메인]/[QR ID] + 1, 2, 3... etc."
         />
       </div>
 
       <div class="form-group row-aligned">
-        <label for="prefix">텍스트</label>
+        <label for="prefix">QR ID(텍스트)</label>
         <input
           id="prefix"
           type="text"
@@ -26,12 +26,32 @@
       </div>
 
       <div class="form-group row-aligned">
-        <label for="count">개수</label>
+        <label for="count">하객 인원 수</label>
         <input
           id="count"
           type="number"
           min="1"
           v-model.number="qrCount"
+        />
+      </div>
+
+      <div class="form-group row-aligned">
+        <label for="maxUploads">업로드 횟수</label>
+        <input
+          id="maxUploads"
+          type="number"
+          min="1"
+          v-model.number="maxUploads"
+        />
+      </div>
+
+      <div class="form-group row-aligned">
+        <label for="maxVotes">투표 횟수</label>
+        <input
+          id="maxVotes"
+          type="number"
+          min="1"
+          v-model.number="maxVotes"
         />
       </div>
 
@@ -55,6 +75,8 @@ const emit = defineEmits(['close'])
 const qrDomain = ref('')
 const qrPrefix = ref('')
 const qrCount = ref(1)
+const maxUploads = ref(1)
+const maxVotes = ref(1)
 
 const isLoading = ref(false)
 
@@ -72,12 +94,16 @@ const handleGenerateQR = async () => {
       domain: qrDomain.value,
       prefix: qrPrefix.value,
       count: qrCount.value,
+      maxUploads: maxUploads.value,
+      maxVotes: maxVotes.value,
     })
 
     const origin = window.location.origin
-    const urls = Array.from({ length: qrCount.value }, (_, i) =>
-      `${origin}/qr/${qrDomain.value}/${qrPrefix.value}${i + 1}`
-    )
+    const urls = Array.from({ length: qrCount.value }, (_, i) => {
+      const paddedNumber = String(i + 1).padStart(3, '0')
+
+      return `${origin}/qr/${qrDomain.value}/${qrPrefix.value}${paddedNumber}`
+    })
     const blob = new Blob([urls.join('\n')], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
 

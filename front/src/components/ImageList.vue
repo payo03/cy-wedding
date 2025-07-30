@@ -18,6 +18,7 @@
         </div>
 
         <img v-if="image.imageUrl" :src="image.imageUrl" alt="이미지" />
+        <div v-if="image.voteQRCode === user?.qrCode" class="voted-mark">✔</div>
       </div>
 
       <!-- 모달 -->
