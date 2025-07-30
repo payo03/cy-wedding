@@ -37,7 +37,6 @@
         <EmailSendModal
           v-if="showEmailModal"
           @close="closeEmailModal"
-          @emailSent="handleEmailSent"
         />
       </transition>
 

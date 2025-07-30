@@ -51,10 +51,16 @@
 
 /* 플랜 선택을 위한 가로 정렬 및 왼쪽 정렬 */
 .form-group.row-aligned {
+  display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
+  justify-content: space-between;
+}
+
+.form-group.row-aligned input {
+  margin-left: auto;
+  text-align: right;
+  width: 60%;
 }
 
 /* 라벨 스타일 */

@@ -9,7 +9,7 @@
         <label for="email">이메일 주소 ▼</label>
         <input type="email" id="email" v-model="emailAddress" placeholder="abc@email.com, test@email.com" />
       </div>
-
+      
       <div class="form-group row-aligned"> <label for="plan">플랜 선택:</label>
         <select id="plan" v-model="selectedPlan">
           <option value="ECO">Eco</option>
@@ -53,7 +53,6 @@ const handleSendEmail = async () => {
     const { message } = response.data
 
     alert(message)
-    emit('emailSent')
     emit('close')
   } catch (e) {
     const errorMessage = e.response?.data?.message || '❌ 이메일 전송 실패 ❌'

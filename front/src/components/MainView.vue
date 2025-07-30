@@ -8,10 +8,16 @@
       @change="handleFileSelect"
     />
 
-    <!-- 관리자 전용 QR 생성 영역 -->
-    <button v-if="userInfo?.admin" class="main-btn qr" @click="openQRModal">
-      <span class="icon">🧾</span> QR 생성 <span class="icon">🧾</span>
-    </button>
+    <!-- 관리자 전용 QR 생성, 시간 조정 영역 -->
+    <div v-if="userInfo?.admin" class="half-btn-group">
+      <button class="main-btn qr half" @click="openQRModal">
+        <span class="icon">🧾</span> QR 생성
+      </button>
+
+      <button class="main-btn sunset half" @click="openTimeModal">
+        <span class="icon">⏰</span> 조정
+      </button>
+    </div>
 
     <button class="main-btn upload" @click="fileUpload" :disabled="!isUpload">
       <span class="icon">💍</span> 사진 업로드 <span class="icon">💍</span>
@@ -35,6 +41,13 @@
     <transition name="modal-fade">
       <QRModal v-if="showQRModal" @close="closeQRModal" />
     </transition>
+    <!-- 관리자 시간 조정 모달 -->
+    <transition name="modal-fade">
+      <TimeModal v-if="showTimeModal"
+        :userInfo="userInfo"
+        @close="closeTimeModal" 
+      />
+    </transition>
   </div>
 
   <div v-if="isLoading" class="fullscreen-loader">
@@ -49,6 +62,7 @@ import { useRouter } from 'vue-router'
 import axios from '@/utils/axios'
 import ImageUploadModal from '@/components/ImageUploadModal.vue'
 import QRModal from '@/components/QRModal.vue'
+import TimeModal from '@/components/TimeModal.vue'
 import '../styles/MainView.css'
 import '../styles/Common.css'
 
@@ -61,6 +75,7 @@ const previewUrl = ref(null)
 
 const showModal = ref(false)
 const showQRModal = ref(false)
+const showTimeModal = ref(false)
 
 const isLoading = ref(false)
 const now = ref(Date.now())
@@ -117,6 +132,13 @@ const openQRModal = () => {
 }
 const closeQRModal = () => {
   showQRModal.value = false
+}
+
+const openTimeModal = () => {
+  showTimeModal.value = true
+}
+const closeTimeModal = () => {
+  showTimeModal.value = false
 }
 
 const fileUpload = () => {
