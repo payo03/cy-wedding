@@ -13,11 +13,11 @@
       <span class="icon">🧾</span> QR 생성 <span class="icon">🧾</span>
     </button>
 
-    <button class="main-btn upload" @click="fileUpload" :disabled="!userInfo">
+    <button class="main-btn upload" @click="fileUpload" :disabled="!isUpload">
       <span class="icon">💍</span> 사진 업로드 <span class="icon">💍</span>
     </button>
 
-    <button class="main-btn vote" @click="goToImageList" :disabled="!userInfo">
+    <button class="main-btn vote" @click="goToImageList" :disabled="!isVote">
       <span class="icon">🎀</span> 사진 투표 <span class="icon">🎀</span>
     </button>
 
@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from '@/utils/axios'
 import ImageUploadModal from '@/components/ImageUploadModal.vue'
@@ -63,13 +63,18 @@ const showModal = ref(false)
 const showQRModal = ref(false)
 
 const isLoading = ref(false)
+const now = ref(Date.now())
+
+const emit = defineEmits(['updateUserInfo'])
+
+// 30초마다 현재 시간 업데이트
 
 onMounted(async () => {
   try {
     const response = await axios.get('/user/check')
 
     userInfo.value = response.data
-    
+    emit('updateUserInfo', response.data)
     if (!response.data || !response.data.qrCode) {
       alert('❌ 잘못된 접근입니다 ❌')
       return
@@ -79,6 +84,32 @@ onMounted(async () => {
 
     alert('❌ QR로 접속해주세요 ❌')
   }
+})
+
+onUnmounted(() => {
+  clearInterval(intervalId)
+})
+
+const intervalId = setInterval(() => {
+  now.value = Date.now()
+}, 30000)
+
+const isUpload = computed(() => {
+  if (!userInfo.value) return false
+
+  const start = new Date(userInfo.value.uploadStart).getTime()
+  const end = new Date(userInfo.value.uploadEnd).getTime()
+
+  return now.value >= start && now.value <= end
+})
+
+const isVote = computed(() => {
+  if (!userInfo.value) return false
+
+  const start = new Date(userInfo.value.votingStart).getTime()
+  const end = new Date(userInfo.value.votingEnd).getTime()
+
+  return now.value >= start && now.value <= end
 })
 
 const openQRModal = () => {

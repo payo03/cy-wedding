@@ -11,7 +11,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import { defineProps, defineEmits } from 'vue'
 import '../styles/ImageUploadModal.css'
 import '../styles/Common.css'
 
