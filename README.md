@@ -130,6 +130,6 @@ cd back
 
 - [✔] **사진 무단저장 방지**
   - [✔] 마우스 오른쪽클릭, 드래그 방지
-  - [ ] Disable Javascript 기능 방지
+  - [✔] Disable Javascript 기능 방지
 
 ---
