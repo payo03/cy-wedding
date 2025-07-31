@@ -1,5 +1,5 @@
 <template>
-  <div class="main-actions">
+  <div class="main-actions" :style="backgroundImageStyle">
     <input
       ref="fileInput"
       type="file"
@@ -69,6 +69,8 @@ import '../styles/Common.css'
 
 const router = useRouter()
 
+const backgroundImage = ref('')
+
 const userInfo = ref(null)
 const fileInput = ref(null)
 const selectedFile = ref(null)
@@ -83,8 +85,6 @@ const now = ref(Date.now())
 
 const emit = defineEmits(['updateUserInfo'])
 
-// 30초마다 현재 시간 업데이트
-
 onMounted(async () => {
   try {
     const response = await axios.get('/user/check')
@@ -94,6 +94,10 @@ onMounted(async () => {
     if (!response.data || !response.data.qrCode) {
       alert('❌ 잘못된 접근입니다 ❌')
       return
+    }
+    
+    if (userInfo.value.imageUrl) {
+      backgroundImage.value = `url(${userInfo.value.imageUrl})`
     }
   } catch (error) {
     console.error('유저 정보 로딩 실패:', error)
@@ -106,9 +110,21 @@ onUnmounted(() => {
   clearInterval(intervalId)
 })
 
+// 30초마다 현재 시간 업데이트
 const intervalId = setInterval(() => {
   now.value = Date.now()
 }, 30000)
+
+const backgroundImageStyle = computed(() => {
+  return backgroundImage.value
+    ? {
+        backgroundImage: backgroundImage.value,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundBlendMode: 'overlay'
+      }
+    : {}
+})
 
 const isUpload = computed(() => {
   if (!userInfo.value) return false
@@ -128,18 +144,14 @@ const isVote = computed(() => {
   return now.value >= start && now.value <= end
 })
 
-const openQRModal = () => {
-  showQRModal.value = true
-}
-const closeQRModal = () => {
-  showQRModal.value = false
-}
-
-const openTimeModal = () => {
-  showTimeModal.value = true
-}
-const closeTimeModal = () => {
-  showTimeModal.value = false
+const openQRModal = () => (showQRModal.value = true)
+const closeQRModal = () => (showQRModal.value = false)
+const openTimeModal = () => (showTimeModal.value = true)
+const closeTimeModal = () => (showTimeModal.value = false)
+const cancelUpload = () => (showModal.value = false)
+const cleanupModal = () => {
+  selectedFile.value = null
+  previewUrl.value = null
 }
 
 const fileUpload = () => {
@@ -198,15 +210,6 @@ const confirmUpload = async () => {
     isLoading.value = false
     alert(errorMessage)
   }
-}
-
-const cancelUpload = () => {
-  showModal.value = false
-}
-
-const cleanupModal = () => {
-  selectedFile.value = null
-  previewUrl.value = null
 }
 
 const goToImageList = () => {
