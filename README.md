@@ -131,7 +131,7 @@ cd back
 - [✔] **사진 무단저장 방지**
   - 1. [✔] 마우스 오른쪽클릭, 드래그 방지
   - 2. [✔] Disable Javascript 기능 방지 (img -> canvas)
-    3. 
+       
 - [ ] **기타사항**
   - 1. [ ] 도메인 관리자 업로드/투표 횟수, 시간설정 가능(Premium Plan)
       1-1. [ ] Group별 PLAN 관리
