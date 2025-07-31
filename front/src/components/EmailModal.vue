@@ -9,7 +9,7 @@
         <label for="email">이메일 주소 ▼</label>
         <input type="email" id="email" v-model="emailAddress" placeholder="abc@email.com, test@email.com" />
       </div>
-      
+
       <div class="form-group row-aligned"> <label for="plan">플랜 선택:</label>
         <select id="plan" v-model="selectedPlan">
           <option value="ECO">Eco</option>
@@ -27,8 +27,6 @@
 <script setup>
 import { ref } from 'vue'
 import axios from '@/utils/axios'
-import '../styles/AdminModal.css'
-import '../styles/Common.css'
 
 const emit = defineEmits(['close', 'emailSent'])
 

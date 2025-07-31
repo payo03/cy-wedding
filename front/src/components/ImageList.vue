@@ -59,6 +59,7 @@ import axios from '@/utils/axios'
 import ImageModal from '@/components/ImageModal.vue'
 import EmailSendModal from '@/components/EmailModal.vue'
 import '../styles/ImageList.css'
+import '../styles/AdminModal.css'
 import '../styles/Common.css'
 
 const images = ref([])

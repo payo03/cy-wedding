@@ -64,6 +64,7 @@ import ImageUploadModal from '@/components/ImageUploadModal.vue'
 import QRModal from '@/components/QRModal.vue'
 import TimeModal from '@/components/TimeModal.vue'
 import '../styles/MainView.css'
+import '../styles/AdminModal.css'
 import '../styles/Common.css'
 
 const router = useRouter()

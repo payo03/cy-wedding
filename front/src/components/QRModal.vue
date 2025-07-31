@@ -67,8 +67,6 @@
 <script setup>
 import { ref } from 'vue'
 import axios from '@/utils/axios'
-import '../styles/AdminModal.css'
-import '../styles/Common.css'
 
 const emit = defineEmits(['close'])
 
