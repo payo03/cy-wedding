@@ -9,12 +9,8 @@
         @click="openModal(image)"
       >
         <!-- 메달 표시: voteTop3 배열에 포함되어 있을 때 -->
-        <div
-          v-if="getMedal(image)"
-          class="medal-label"
-          :class="getMedalClass(image)"
-        >
-          {{ getMedal(image) }}
+        <div v-if="getMedalInfo(image)" class="medal-label" :class="getMedalInfo(image).class">
+          {{ getMedalInfo(image).medal }}
         </div>
 
         <img v-if="image.imageUrl" :src="image.imageUrl" alt="이미지" />
@@ -22,13 +18,17 @@
       </div>
 
       <!-- 모달 -->
-      <transition name="modal-fade" @after-leave="selectedImage = null">
+      <transition name="modal-fade">
         <ImageModal
           v-if="showModal"
-          :image="selectedImage"
+          :image="images[selectedIndex]"
           :user="user"
+          :is-prev="isPrev"
+          :is-next="isNext"
           @close="closeModal"
           @voted="fetchImageList"
+          @next="handleNext"
+          @prev="handlePrev"
         />
       </transition>
 
@@ -64,7 +64,9 @@ import '../styles/Common.css'
 
 const images = ref([])
 const user = ref(null)
-const selectedImage = ref(null)
+const selectedIndex = ref(null)
+const isPrev = computed(() => selectedIndex.value > 0)
+const isNext = computed(() => selectedIndex.value < images.value.length - 1)
 
 const showModal = ref(false)
 const showEmailModal = ref(false)
@@ -97,30 +99,41 @@ const voteTop3 = computed(() => {
     .slice(0, 3)
 })
 
-const getMedal = (image) => {
-  const index = voteTop3.value.findIndex(i => i.fileName === image.fileName)
-  if (index === 0) return '🥇'
-  if (index === 1) return '🥈'
-  if (index === 2) return '🥉'
-  return null
-}
+const voteMedalMap = computed(() => {
+  const map = new Map()
+  voteTop3.value.forEach((img, index) => {
+    map.set(img.fileName, index)
+  })
+  return map
+})
 
-const getMedalClass = (image) => {
-  const index = voteTop3.value.findIndex(i => i.fileName === image.fileName)
-  if (index === 0) return 'gold'
-  if (index === 1) return 'silver'
-  if (index === 2) return 'bronze'
-  return ''
+const getMedalInfo = (image) => {
+  const index = voteMedalMap.value.get(image.fileName)
+  if (index === 0) return { medal: '🥇', class: 'gold' }
+  if (index === 1) return { medal: '🥈', class: 'silver' }
+  if (index === 2) return { medal: '🥉', class: 'bronze' }
+  return null
 }
 
 onMounted(fetchImageList)
 
 const openModal = (image) => {
-  selectedImage.value = image
+  const index = images.value.findIndex(i => i.fileName === image.fileName)
+  selectedIndex.value = index
   showModal.value = true
 }
 const closeModal = () => {
   showModal.value = false
+}
+const handleNext = () => {
+  if (selectedIndex.value < images.value.length - 1) {
+    selectedIndex.value++
+  }
+}
+const handlePrev = () => {
+  if (selectedIndex.value > 0) {
+    selectedIndex.value--
+  }
 }
 
 const openEmailModal = () => {

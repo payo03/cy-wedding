@@ -17,6 +17,17 @@
   width: auto;
   height: auto;
   object-fit: contain;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.slide-left {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide-right {
+  transform: translateX(100%);
+  opacity: 0;
 }
 
 /* 닫기 버튼 - 항상 잘 보이도록 배경 및 그림자 처리 */
@@ -41,6 +52,39 @@
 
 .close-button:hover {
   opacity: 0.8;
+}
+
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.75);
+  color: #e06382;
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 0.6rem;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  backdrop-filter: blur(4px);
+  border: none;
+}
+
+.nav-button.left {
+  left: 0.8rem;
+}
+
+.nav-button.right {
+  right: 0.8rem;
+}
+
+.nav-button:hover {
+  transform: translateY(-50%) scale(1.1);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 /* 공통 버튼 스타일 (투표, 삭제 모두에 적용) */
