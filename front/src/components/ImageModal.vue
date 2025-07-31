@@ -5,11 +5,12 @@
     <div class="modal-content">
 
       <button v-if="isPrev" class="nav-button left" @click="handlePrev">←</button>
-      <img :src="image.imageUrl" 
+      <canvas ref="modalCanvasRef"
         class="modal-image" 
         :class="transitionClass"
         @touchstart="onTouchStart"
-        @touchend="onTouchEnd"/>
+        @touchend="onTouchEnd"
+      ></canvas>
       <button v-if="isNext" class="nav-button right" @click="handleNext">→</button>
       
       <div class="button-row">
@@ -22,10 +23,11 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick, watch } from 'vue'
 import axios from '@/utils/axios'
 import '../styles/ImageModal.css'
 
+const modalCanvasRef = ref(null)
 const transitionClass = ref('')
 
 const props = defineProps({
@@ -41,7 +43,42 @@ onMounted(() => {
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault()
   })
+  drawSlicedImage()
 })
+
+watch(() => props.image?.imageUrl, async () => {
+  await nextTick()
+  drawSlicedImage()
+})
+
+const drawSlicedImage = () => {
+  const canvas = modalCanvasRef.value
+  if (!canvas || !props.image?.imageUrl) return
+
+  const ctx = canvas.getContext('2d')
+  const img = new Image()
+  img.crossOrigin = 'anonymous'
+  img.src = props.image.imageUrl
+
+  img.onload = () => {
+    const maxWidth = window.innerWidth * 0.9
+    const maxHeight = window.innerHeight * 0.8
+
+    const widthScale = maxWidth / img.width
+    const heightScale = maxHeight / img.height
+    const scale = Math.min(widthScale, heightScale, 1)
+
+    const canvasWidth = img.width * scale
+    const canvasHeight = img.height * scale
+
+    canvas.width = canvasWidth
+    canvas.height = canvasHeight
+    canvas.style.width = `${canvasWidth}px`
+    canvas.style.height = `${canvasHeight}px`
+
+    ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight)
+  }
+}
 
 const isAdminUser = computed(() => {
   return props.user?.admin || props.user?.domainAdmin

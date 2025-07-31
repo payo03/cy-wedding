@@ -12,7 +12,10 @@
           {{ getMedalInfo(image).medal }}
         </div>
 
-        <img v-if="image.imageUrl" :src="image.imageUrl" />
+        <canvas v-if="image.imageUrl"
+          :ref="el => canvasRefs[index] = el"
+          class="image-canvas"
+        ></canvas>
         <div v-if="image.voteQRCode === user?.qrCode" class="voted-mark">✔</div>
       </div>
 
@@ -53,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, nextTick } from 'vue'
 import axios from '@/utils/axios'
 import ImageModal from '@/components/ImageModal.vue'
 import EmailSendModal from '@/components/EmailModal.vue'
@@ -62,6 +65,7 @@ import '../styles/AdminModal.css'
 import '../styles/Common.css'
 
 const images = ref([])
+const canvasRefs = ref([])
 const user = ref(null)
 const selectedIndex = ref(null)
 const isPrev = computed(() => selectedIndex.value > 0)
@@ -79,19 +83,61 @@ onMounted(() => {
   fetchImageList()
 })
 
+const drawSlicedImages = async () => {
+  await nextTick()
+
+  images.value.forEach((image, idx) => {
+    const canvas = canvasRefs.value[idx]
+    if (!canvas) return
+
+    const ctx = canvas.getContext('2d')
+    const img = new Image()
+    img.crossOrigin = 'anonymous'
+    img.src = image.imageUrl
+
+    img.onload = () => {
+      const container = canvas.parentElement
+      const displayWidth = container.clientWidth
+      const displayHeight = container.clientHeight
+
+      canvas.width = displayWidth
+      canvas.height = displayHeight
+      canvas.style.width = `${displayWidth}px`
+      canvas.style.height = `${displayHeight}px`
+      
+      const widthScale = displayWidth / img.width
+      const heightScale = displayHeight / img.height
+      const scale = Math.min(widthScale, heightScale)
+
+      const imgWidth = img.width * scale
+      const imgHeight = img.height * scale
+
+      const offsetX = (displayWidth - imgWidth) / 2
+      const offsetY = (displayHeight - imgHeight) / 2
+
+      ctx.clearRect(0, 0, displayWidth, displayHeight)
+      ctx.drawImage(img, offsetX, offsetY, imgWidth, imgHeight)
+    }
+  })
+}
+
 const fetchImageList = async () => {
   try {
     const response = await axios.get('/image/list')
-
     const { success, images: imageList, user: userInfo } = response.data
 
     if (success) {
       images.value = imageList
       user.value = userInfo
+
+      await nextTick()
+      canvasRefs.value = Array(images.value.length).fill(null)
+
+      await nextTick()
+      drawSlicedImages()
     }
   } catch (e) {
     console.error('이미지 목록 에러:', e)
-
     const errorMessage = e.response?.data?.message || '❌ 서버 오류 발생 ❌'
     alert(errorMessage)
   } finally {
