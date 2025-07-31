@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import axios from '@/utils/axios'
 import '../styles/ImageModal.css'
 
@@ -36,6 +36,12 @@ const props = defineProps({
 })
 const emit = defineEmits(['close', 'voted', 'next', 'prev'])
 const isLoading = ref(false)
+
+onMounted(() => {
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault()
+  })
+})
 
 const isAdminUser = computed(() => {
   return props.user?.admin || props.user?.domainAdmin

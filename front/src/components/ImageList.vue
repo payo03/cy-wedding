@@ -1,8 +1,7 @@
 <template>
   <div class="image-list-scroll-wrapper">
     <div class="image-columns">
-      <div
-        v-for="(image, index) in images"
+      <div v-for="(image, index) in images"
         :key="index"
         class="image-item"
         :class="{ 'my-image': image.qrCode === user?.qrCode }"
@@ -13,7 +12,7 @@
           {{ getMedalInfo(image).medal }}
         </div>
 
-        <img v-if="image.imageUrl" :src="image.imageUrl" alt="이미지" />
+        <img v-if="image.imageUrl" :src="image.imageUrl" />
         <div v-if="image.voteQRCode === user?.qrCode" class="voted-mark">✔</div>
       </div>
 
@@ -73,6 +72,13 @@ const showEmailModal = ref(false)
 
 const isLoading = ref(true)
 
+onMounted(() => {
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault()
+  })
+  fetchImageList()
+})
+
 const fetchImageList = async () => {
   try {
     const response = await axios.get('/image/list')
@@ -114,8 +120,6 @@ const getMedalInfo = (image) => {
   if (index === 2) return { medal: '🥉', class: 'bronze' }
   return null
 }
-
-onMounted(fetchImageList)
 
 const openModal = (image) => {
   const index = images.value.findIndex(i => i.fileName === image.fileName)

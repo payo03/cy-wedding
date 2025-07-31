@@ -1,4 +1,7 @@
-
+img {
+  pointer-events: none;
+  user-select: none;
+}
 
 .fullscreen-loader {
   position: fixed;
