@@ -28,26 +28,32 @@
     </button>
 
     <!-- 업로드 사진 미리보기 모달 -->
-    <transition name="modal-fade" @after-leave="cleanupModal">
-      <ImageUploadModal
-        v-if="showModal"
-        :previewUrl="previewUrl"
-        @confirm="confirmUpload"
-        @close="cancelUpload"
-      />
-    </transition>
+    <teleport to="body">
+      <transition name="modal-fade" @after-leave="cleanupModal">
+        <ImageUploadModal
+          v-if="showModal"
+          :previewUrl="previewUrl"
+          @confirm="confirmUpload"
+          @close="cancelUpload"
+        />
+      </transition>
+    </teleport>
 
     <!-- 관리자 QR 생성 모달 -->
-    <transition name="modal-fade">
-      <QRModal v-if="showQRModal" @close="closeQRModal" />
-    </transition>
+    <teleport to="body">
+      <transition name="modal-fade">
+        <QRModal v-if="showQRModal" @close="closeQRModal" />
+      </transition>
+    </teleport>
     <!-- 관리자 시간 조정 모달 -->
-    <transition name="modal-fade">
-      <TimeModal v-if="showTimeModal"
-        :userInfo="userInfo"
-        @close="closeTimeModal" 
-      />
-    </transition>
+    <teleport to="body">
+      <transition name="modal-fade">
+        <TimeModal v-if="showTimeModal"
+          :userInfo="userInfo"
+          @close="closeTimeModal" 
+        />
+      </transition>
+    </teleport>
   </div>
 
   <div v-if="isLoading" class="fullscreen-loader">
@@ -95,7 +101,7 @@ onMounted(async () => {
       alert('❌ 잘못된 접근입니다 ❌')
       return
     }
-    
+
     if (userInfo.value.imageUrl) {
       backgroundImage.value = `url(${userInfo.value.imageUrl})`
     }

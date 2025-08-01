@@ -1,6 +1,6 @@
 <template>
   <div class="modal" @click.self="emit('close')">
-    <img :src="previewUrl" class="modal-image" alt="미리보기" />
+    <img :src="previewUrl" class="modal-upload-image" alt="미리보기" />
 
     <div class="button-row">
       <button class="modal-button upload" :disabled="isLoading" @click="handleConfirm">✅</button>

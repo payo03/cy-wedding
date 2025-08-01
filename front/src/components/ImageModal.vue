@@ -15,7 +15,7 @@
       
       <div class="button-row">
         <button class="vote-button" :disabled="isLoading" @click="handleVote">👍</button>
-        <button v-if="isAdminUser" :disabled="isLoading" class="delete-button" @click="handleDelete">🗑️</button>
+        <button v-if="isDeleteAble" :disabled="isLoading" class="delete-button" @click="handleDelete">🗑️</button>
       </div>
 
     </div>
@@ -80,8 +80,11 @@ const drawSlicedImage = () => {
   }
 }
 
-const isAdminUser = computed(() => {
-  return props.user?.admin || props.user?.domainAdmin
+const isDeleteAble = computed(() => {
+  let user = props.user
+  let image = props.image
+
+  return user.admin || user.domainAdmin || image.qrCode === user.qrCode
 })
 
 const handleVote = async () => {

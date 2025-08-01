@@ -23,7 +23,6 @@
   overflow: hidden;
   border-radius: 6px;
   box-sizing: border-box;
-  padding: 2px;
   position: relative;
 
   border: 1px solid #e5e5e5;
@@ -35,6 +34,7 @@
 .image-canvas {
   width: 100%;
   height: 100%;
+  margin: 0 auto;
   display: block;
   cursor: pointer;
   border-radius: 4px;
@@ -67,7 +67,7 @@
 
 /* 이미지의 테두리를 강조 - 내 이미지일 경우 */
 .image-item.my-image {
-  border: 3px solid #b76e79;
+  border: 3px solid #39e055;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(183, 110, 121, 0.3);
 }
