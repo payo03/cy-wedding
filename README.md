@@ -134,8 +134,8 @@ cd back
        
 - [✔] **기타사항**
   - 1. [✔] 도메인 관리자 업로드/투표 횟수, 시간설정 가능(Premium Plan)
-      1-1. [✔] Group별 PLAN 관리
-      1-2. [✔] 이메일 전송시 Group의 Plan Default반영
+      - 1-1. [✔] Group별 PLAN 관리
+      - 1-2. [✔] 이메일 전송시 Group의 Plan Default반영
   - 2. [✔] 사용자 본인사진 삭제기능
   - 3. [✔] 업로드 사진 1분 Delay적용
 ---
