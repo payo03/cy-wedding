@@ -15,10 +15,9 @@
 
 .notice-section p {
   margin: 0;
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 1.2rem;
   color: white;
-  -webkit-text-stroke: 0.8px black;
+  -webkit-text-stroke: 0.9px black;
 }
 
 .home-button {
