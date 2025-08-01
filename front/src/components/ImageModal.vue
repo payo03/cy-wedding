@@ -15,7 +15,7 @@
       
       <div class="button-row">
         <button class="vote-button" :disabled="isLoading" @click="handleVote">👍</button>
-        <button v-if="isDeleteAble" :disabled="isLoading" class="delete-button" @click="handleDelete">🗑️</button>
+        <button v-if="isAbleLv3" :disabled="isLoading" class="delete-button" @click="handleDelete">🗑️</button>
       </div>
 
     </div>
@@ -51,6 +51,13 @@ watch(() => props.image?.imageUrl, async () => {
   drawSlicedImage()
 })
 
+const isAbleLv3 = computed(() => {
+  let user = props.user
+  let image = props.image
+
+  return user.admin || user.domainAdmin || image.qrCode === user.qrCode
+})
+
 const drawSlicedImage = () => {
   const canvas = modalCanvasRef.value
   if (!canvas || !props.image?.imageUrl) return
@@ -79,13 +86,6 @@ const drawSlicedImage = () => {
     ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight)
   }
 }
-
-const isDeleteAble = computed(() => {
-  let user = props.user
-  let image = props.image
-
-  return user.admin || user.domainAdmin || image.qrCode === user.qrCode
-})
 
 const handleVote = async () => {
   if (isLoading.value) return

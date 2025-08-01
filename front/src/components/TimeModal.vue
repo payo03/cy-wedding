@@ -4,6 +4,26 @@
       <button class="close-button" @click="$emit('close')">×</button>
 
       <h2>⏰ 시간 조정</h2>
+      
+      <div class="form-group row-aligned">
+        <label for="maxUploads">업로드 횟수</label>
+        <input
+          id="maxUploads"
+          type="number"
+          min="1"
+          v-model.number="maxUploads"
+        />
+      </div>
+
+      <div class="form-group row-aligned">
+        <label for="maxVotes">투표 횟수</label>
+        <input
+          id="maxVotes"
+          type="number"
+          min="1"
+          v-model.number="maxVotes"
+        />
+      </div>
 
       <!-- 업로드 가능 시간 -->
       <div class="form-group">
@@ -83,6 +103,7 @@
 <script setup>
 import { ref } from 'vue'
 import Datepicker from '@vuepic/vue-datepicker'
+import { parseUtcStringAsKst } from '@/utils/datetime'
 import '@vuepic/vue-datepicker/dist/main.css'
 
 import axios from '@/utils/axios'
@@ -98,10 +119,13 @@ const emit = defineEmits(['close'])
 
 const isLoading = ref(false)
 
-const uploadStart = ref(props.userInfo.uploadStart ? new Date(props.userInfo.uploadStart) : null)
-const uploadEnd = ref(props.userInfo.uploadEnd ? new Date(props.userInfo.uploadEnd) : null)
-const votingStart = ref(props.userInfo.votingStart ? new Date(props.userInfo.votingStart) : null)
-const votingEnd = ref(props.userInfo.votingEnd ? new Date(props.userInfo.votingEnd) : null)
+const maxUploads = ref(props.userInfo.maxUploads)
+const maxVotes = ref(props.userInfo.maxVotes)
+
+const uploadStart = ref(parseUtcStringAsKst(props.userInfo.uploadStart))
+const uploadEnd = ref(parseUtcStringAsKst(props.userInfo.uploadEnd))
+const votingStart = ref(parseUtcStringAsKst(props.userInfo.votingStart))
+const votingEnd = ref(parseUtcStringAsKst(props.userInfo.votingEnd))
 
 const submitTimes = async () => {
   if (isLoading.value) return
@@ -109,10 +133,12 @@ const submitTimes = async () => {
   isLoading.value = true
   try {
     await axios.post('/qr/time', {
-      uploadStart: uploadStart.value?.toISOString(),
-      uploadEnd: uploadEnd.value?.toISOString(),
-      votingStart: votingStart.value?.toISOString(),
-      votingEnd: votingEnd.value?.toISOString()
+        maxUploads: maxUploads.value,
+        maxVotes: maxVotes.value,
+        uploadStart: uploadStart.value?.toISOString().replace('Z', ''),
+        uploadEnd: uploadEnd.value?.toISOString().replace('Z', ''),
+        votingStart: votingStart.value?.toISOString().replace('Z', ''),
+        votingEnd: votingEnd.value?.toISOString().replace('Z', '')
     })
 
     alert('업로드, 투표시간이 조정되었습니다')

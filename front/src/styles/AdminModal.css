@@ -8,7 +8,7 @@
   max-width: 450px;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.2rem;
   animation: 0.25s ease-out forwards;
   position: relative;
   border: 1.5px solid rgba(248, 225, 234, 0.8);

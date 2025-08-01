@@ -12,8 +12,9 @@
 
       <div class="form-group row-aligned"> <label for="plan">플랜 선택:</label>
         <select id="plan" v-model="selectedPlan">
-          <option value="ECO">Eco</option>
-          <option value="PREMIUM">Premium</option>
+          <option value="E">Eco</option>
+          <option value="G">Gold</option>
+          <option value="P">Premium</option>
         </select>
       </div>
 
@@ -29,11 +30,15 @@ import { ref } from 'vue'
 import axios from '@/utils/axios'
 
 const emit = defineEmits(['close', 'emailSent'])
+const props = defineProps({
+  user: Object
+})
 
 const emailAddress = ref('')
-const selectedPlan = ref('ECO')
 
 const isLoading = ref(false)
+
+const selectedPlan = ref(props.user.plan)
 
 const handleSendEmail = async () => {
   if (!emailAddress.value || isLoading.value) {

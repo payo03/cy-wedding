@@ -21,8 +21,7 @@
 
       <!-- 모달 -->
       <transition name="modal-fade">
-        <ImageModal
-          v-if="showModal"
+        <ImageModal v-if="showModal"
           :image="images[selectedIndex]"
           :user="user"
           :is-prev="isPrev"
@@ -36,13 +35,15 @@
 
       <!-- 이메일 전송모달(관리자) -->
       <transition name="modal-fade">
-        <EmailSendModal
-          v-if="showEmailModal"
+        <EmailSendModal v-if="showEmailModal"
+          :user="user"
           @close="closeEmailModal"
         />
       </transition>
 
-      <button v-if="user?.admin" class="send-button" @click="openEmailModal">
+      <button v-if="isAbleLv1" 
+        class="send-button" 
+        @click="openEmailModal">
         📷 사진 전송
       </button>
     </div>
@@ -81,6 +82,10 @@ onMounted(() => {
     e.preventDefault()
   })
   fetchImageList()
+})
+
+const isAbleLv1 = computed(() => {
+  return user.value?.admin
 })
 
 const drawSlicedImages = async () => {

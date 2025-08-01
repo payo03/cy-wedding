@@ -8,14 +8,15 @@
       @change="handleFileSelect"
     />
 
-    <!-- 관리자 전용 QR 생성, 시간 조정 영역 -->
-    <div v-if="userInfo?.admin" class="half-btn-group">
-      <button class="main-btn qr half" @click="openQRModal">
+    <!-- 관리자 전용 QR 영역 -->
+    <div v-if="isAbleLv2" class="half-btn-group">
+      <button v-if="isAbleLv1" class="main-btn qr half" @click="openQRModal">
         <span class="icon">🧾</span> QR 생성
       </button>
 
+      <!-- 생성시간 조정 영역 -->
       <button class="main-btn sunset half" @click="openTimeModal">
-        <span class="icon">⏰</span> 조정
+        <span class="icon">⏰</span> 조정 <span class="icon">⏰</span>
       </button>
     </div>
 
@@ -69,6 +70,7 @@ import axios from '@/utils/axios'
 import ImageUploadModal from '@/components/ImageUploadModal.vue'
 import QRModal from '@/components/QRModal.vue'
 import TimeModal from '@/components/TimeModal.vue'
+import { parseUtcStringAsKst, isBetweenNow } from '@/utils/datetime'
 import '../styles/MainView.css'
 import '../styles/AdminModal.css'
 import '../styles/Common.css'
@@ -90,6 +92,13 @@ const isLoading = ref(false)
 const now = ref(Date.now())
 
 const emit = defineEmits(['updateUserInfo'])
+
+const isAbleLv1 = computed(() => {
+  return userInfo.value?.admin
+})
+const isAbleLv2 = computed(() => {
+  return userInfo.value?.admin || (userInfo.value?.domainAdmin && userInfo.value?.plan === 'P')
+})
 
 onMounted(async () => {
   try {
@@ -118,7 +127,7 @@ onUnmounted(() => {
 
 // 30초마다 현재 시간 업데이트
 const intervalId = setInterval(() => {
-  now.value = Date.now()
+  now.value = new Date()
 }, 30000)
 
 const backgroundImageStyle = computed(() => {
@@ -135,19 +144,18 @@ const backgroundImageStyle = computed(() => {
 const isUpload = computed(() => {
   if (!userInfo.value) return false
 
-  const start = new Date(userInfo.value.uploadStart).getTime()
-  const end = new Date(userInfo.value.uploadEnd).getTime()
+  const uploadStart = parseUtcStringAsKst(userInfo.value.uploadStart)
+  const uploadEnd = parseUtcStringAsKst(userInfo.value.uploadEnd)
 
-  return now.value >= start && now.value <= end
+  return isBetweenNow(uploadStart, now.value, uploadEnd)
 })
-
 const isVote = computed(() => {
   if (!userInfo.value) return false
 
-  const start = new Date(userInfo.value.votingStart).getTime()
-  const end = new Date(userInfo.value.votingEnd).getTime()
+  const votingStart = parseUtcStringAsKst(userInfo.value.votingStart)
+  const votingEnd = parseUtcStringAsKst(userInfo.value.votingEnd)
 
-  return now.value >= start && now.value <= end
+  return isBetweenNow(votingStart, now.value, votingEnd)
 })
 
 const openQRModal = () => (showQRModal.value = true)
@@ -162,9 +170,7 @@ const cleanupModal = () => {
 
 const fileUpload = () => {
 
-  const isAdmin = userInfo.value.admin || userInfo.value.domainAdmin
   const isUpload = userInfo.value.upload
-
   if (!isAdmin && isUpload) {
     alert('❌ 업로드한 사진이 존재합니다. ❌')
     return
