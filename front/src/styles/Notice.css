@@ -1,16 +1,16 @@
 .notice-section {
-    width: 100%;
-    background: none; /* 배경색 제거 */
-    color: #222;
-    padding: 0.5rem 0.5rem 0.4rem 0.5rem;
-    text-align: center;
-    border-bottom: 1px solid #e5e7eb;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.02);
-    position: relative; /* 버튼 위치 기준 */
-    min-height: unset;
-    z-index: 1;
-    font-weight: 700;
-    font-family: 'Gowun Dodum', sans-serif; /* 동글동글한 느낌 */
+  width: 100%;
+  background: none; /* 배경색 제거 */
+  color: #222;
+  padding: 0.5rem 0.5rem 0.4rem 0.5rem;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+  position: relative; /* 버튼 위치 기준 */
+  min-height: unset;
+  z-index: 1;
+  font-weight: 700;
+  font-family: 'Gowun Dodum', sans-serif; /* 동글동글한 느낌 */
 }
 
 .notice-section p {
@@ -50,13 +50,13 @@
 }
 
 @media (min-width: 600px) {
-    .notice-section {
-      padding: 0.7rem 1.2rem 0.6rem 1.2rem;
-      font-size: 1.08rem;
-    }
-  
-    .home-button {
-      /* 그대로 유지하거나 폰트 살짝 키워도 됨 */
-      font-size: 1.25rem;
-    }
+  .notice-section {
+    padding: 0.7rem 1.2rem 0.6rem 1.2rem;
+    font-size: 1.08rem;
+  }
+
+  .home-button {
+    /* 그대로 유지하거나 폰트 살짝 키워도 됨 */
+    font-size: 1.25rem;
+  }
 }  
