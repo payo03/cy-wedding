@@ -31,8 +31,7 @@
     <!-- 업로드 사진 미리보기 모달 -->
     <teleport to="body">
       <transition name="modal-fade" @after-leave="cleanupModal">
-        <ImageUploadModal
-          v-if="showModal"
+        <ImageUploadModal v-if="showModal"
           :previewUrl="previewUrl"
           @confirm="confirmUpload"
           @close="cancelUpload"
