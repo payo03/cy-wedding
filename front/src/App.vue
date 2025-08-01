@@ -1,9 +1,14 @@
 <template>
-  <div class="insta-layout">
+  <div class="insta-layout"
+    :class="{ 'has-background': !!userInfo?.imageUrl }"
+    :style="userInfo?.imageUrl ? { backgroundImage: `url(${userInfo.imageUrl})` } : {}"
+  >
+
     <NoticeSection :userInfo="userInfo" />
     <header class="insta-header">
       <span class="insta-title">🌸 가장 예쁜 순간에 투표해주세요 🌸</span>
     </header>
+
     <div class="main-content">
       <router-view @updateUserInfo="updateUserInfo" />
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="main-actions" :style="backgroundImageStyle">
+  <div class="main-actions">
     <input
       ref="fileInput"
       type="file"
@@ -132,17 +132,6 @@ onUnmounted(() => {
 const intervalId = setInterval(() => {
   now.value = new Date()
 }, 30000)
-
-const backgroundImageStyle = computed(() => {
-  return backgroundImage.value
-    ? {
-        backgroundImage: backgroundImage.value,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        backgroundBlendMode: 'overlay'
-      }
-    : {}
-})
 
 const isUpload = computed(() => {
   if (!userInfo.value) return false
