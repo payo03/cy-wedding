@@ -6,7 +6,7 @@
         class="image-item"
         :class="{
           'my-image': image.qrCode === user?.qrCode,
-          'over-image': new Date(image.createdAt + 'Z') > new Date()
+          'unload-image': image.unload
         }"
         @click="openModal(image)"
       >
@@ -64,6 +64,7 @@ import { ref, onMounted, computed, nextTick } from 'vue'
 import axios from '@/utils/axios'
 import ImageModal from '@/components/ImageModal.vue'
 import EmailSendModal from '@/components/EmailModal.vue'
+import { parseUtcStringAsKst } from '@/utils/datetime'
 import '../styles/ImageList.css'
 import '../styles/AdminModal.css'
 import '../styles/Common.css'
@@ -135,7 +136,14 @@ const fetchImageList = async () => {
     const { success, images: imageList, user: userInfo } = response.data
 
     if (success) {
-      images.value = imageList
+      images.value = imageList.map(image => {
+        const unload = new Date() - parseUtcStringAsKst(image.createdAt) < 60000 // 업로드 60초 미만
+
+        return {
+          ...image,
+          unload,
+        }
+      })
       user.value = userInfo
 
       await nextTick()

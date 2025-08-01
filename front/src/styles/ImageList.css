@@ -73,7 +73,7 @@
 }
 
 /* 업로드 시간기준 1분 Delay css */
-.image-item.over-image {
+.image-item.unload-image {
   position: relative;
   opacity: 0.5;
   filter: brightness(0.5);
