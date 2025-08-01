@@ -4,7 +4,10 @@
       <div v-for="(image, index) in images"
         :key="index"
         class="image-item"
-        :class="{ 'my-image': image.qrCode === user?.qrCode }"
+        :class="{
+          'my-image': image.qrCode === user?.qrCode,
+          'over-image': new Date(image.createdAt + 'Z') > new Date()
+        }"
         @click="openModal(image)"
       >
         <!-- 메달 표시: voteTop3 배열에 포함되어 있을 때 -->
@@ -27,7 +30,7 @@
           :is-prev="isPrev"
           :is-next="isNext"
           @close="closeModal"
-          @voted="fetchImageList"
+          @fetch="fetchImageList"
           @next="handleNext"
           @prev="handlePrev"
         />
@@ -61,6 +64,7 @@ import { ref, onMounted, computed, nextTick } from 'vue'
 import axios from '@/utils/axios'
 import ImageModal from '@/components/ImageModal.vue'
 import EmailSendModal from '@/components/EmailModal.vue'
+import { parseUtcStringAsKst } from '@/utils/datetime'
 import '../styles/ImageList.css'
 import '../styles/AdminModal.css'
 import '../styles/Common.css'

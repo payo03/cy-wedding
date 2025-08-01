@@ -6,6 +6,15 @@
   border: 1px solid #ccc;
 }
 
+.preview-info-text {
+  margin-top: 1rem;
+  margin-bottom: -0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: black;
+  text-align: center;
+}
+
 /* 공통 버튼 */
 .modal-button {
   display: flex;

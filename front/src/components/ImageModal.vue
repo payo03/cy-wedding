@@ -15,6 +15,7 @@
       
       <div class="button-row">
         <button class="vote-button" :disabled="isLoading" @click="handleVote">👍</button>
+        <button v-if="isAbleLv2" :disabled="isLoading" class="banned-button" @click="handleBanned">🚫</button>
         <button v-if="isAbleLv3" :disabled="isLoading" class="delete-button" @click="handleDelete">🗑️</button>
       </div>
 
@@ -36,7 +37,7 @@ const props = defineProps({
   isPrev: Boolean,
   isNext: Boolean
 })
-const emit = defineEmits(['close', 'voted', 'next', 'prev'])
+const emit = defineEmits(['close', 'fetch', 'next', 'prev'])
 const isLoading = ref(false)
 
 onMounted(() => {
@@ -51,6 +52,9 @@ watch(() => props.image?.imageUrl, async () => {
   drawSlicedImage()
 })
 
+const isAbleLv2 = computed(() => {
+  return props.user.admin || props.user.domainAdmin
+})
 const isAbleLv3 = computed(() => {
   let user = props.user
   let image = props.image
@@ -108,9 +112,42 @@ const handleVote = async () => {
 
     const { success, message } = res.data
     if (success) {
-      emit('voted')
+      emit('fetch')
     }
     alert(message)
+  } catch (e) {
+    const errorMessage = e.response?.data?.message || '❌ 서버 오류 발생 ❌'
+
+    alert(errorMessage)
+  } finally {
+    isLoading.value = false
+    emit('close')
+  }
+}
+
+const handleBanned = async () => {
+  if (!props.image) return
+  isLoading.value = true
+
+  const confirmDelete = window.confirm('해당 사용자의 사진업로드를 금지하시겠습니까?')
+  if (!confirmDelete) {
+    isLoading.value = false
+    return
+  }
+
+  try {
+    const res = await axios.post('/image/banned', {
+      qrCode: props.image.qrCode,
+      fileName: props.image.fileName,
+    })
+
+    const { success, message } = res.data
+    alert(message)
+
+    if (success) {
+      emit('fetch')
+      emit('close')
+    }
   } catch (e) {
     const errorMessage = e.response?.data?.message || '❌ 서버 오류 발생 ❌'
 
@@ -133,18 +170,18 @@ const handleDelete = async () => {
 
   try {
     const res = await axios.post('/image/delete', {
-      fileName: props.image.fileName,
+      fileName: props.image.fileName
     })
 
     const { success, message } = res.data
     alert(message)
 
     if (success) {
-      emit('voted')
+      emit('fetch')
       emit('close')
     }
   } catch (e) {
-    const errorMessage = e.response?.data?.message || '❌ 삭제 중 오류 발생 ❌'
+    const errorMessage = e.response?.data?.message || '❌ 사용자 업로드 금지 반영중 오류 발생 ❌'
 
     alert(errorMessage)
   } finally {

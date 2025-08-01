@@ -93,8 +93,9 @@
 
 /* 공통 버튼 스타일 (투표, 삭제 모두에 적용) */
 .vote-button,
+.banned-button,
 .delete-button {
-  display: flex;                  /* 버튼 내부 정렬 */
+  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -110,14 +111,15 @@
   line-height: 1;                /* 이모지 정렬 개선 */
 }
 
-/* 👍 따봉 버튼 스타일 */
 .vote-button,
+.banned-button,
 .delete-button {
   color: #d63384;
   border-color: #f5b6d2;
 }
 
 .vote-button:hover,
+.banned-button:hover,
 .delete-button:hover {
   background-color: #ffe6f1;
   transform: scale(1.05);

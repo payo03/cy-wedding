@@ -99,6 +99,9 @@ const isAbleLv1 = computed(() => {
 const isAbleLv2 = computed(() => {
   return userInfo.value?.admin || (userInfo.value?.domainAdmin && userInfo.value?.plan === 'P')
 })
+const isAbleLv3 = computed(() => {
+  return userInfo.value?.admin || userInfo.value?.domainAdmin
+})
 
 onMounted(async () => {
   try {
@@ -171,7 +174,7 @@ const cleanupModal = () => {
 const fileUpload = () => {
 
   const isUpload = userInfo.value.upload
-  if (!isAdmin && isUpload) {
+  if (!isAbleLv3 && isUpload) {
     alert('❌ 업로드한 사진이 존재합니다. ❌')
     return
   }
